@@ -1,6 +1,17 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { useEffect } from "react";
+import axios from "axios";
 function App() {
+  const fetchData = async () => {
+    const results = await axios.get("/api/getTweets");
+    console.log("first results: ", results);
+    return results;
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen text-stone-100 bg-stone-900">
       <Header />
