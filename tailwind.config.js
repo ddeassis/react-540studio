@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        londrina: ["'Londrina Outline'", ...defaultTheme.fontFamily.sans],
+        londrina: ["'Londrina Solid'", ...defaultTheme.fontFamily.sans],
         redhat: ["'Red Hat Display'", ...defaultTheme.fontFamily.sans],
       },
     },

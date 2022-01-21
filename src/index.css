@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Red+Hat+Display&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Londrina+Solid&family=Red+Hat+Display&display=swap");
 
 #twitter-posts a {
   @apply text-green-500 font-semibold;
