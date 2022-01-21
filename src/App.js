@@ -29,24 +29,10 @@ function App() {
           This is where Diogo should craft a short explanation of 540Studio's
           mission.
         </p>
-        <div className="flex justify-around mb-3 md:mb-4 lg:mb-6">
-          <div className="text-center">
-            <a href="https://twitter.com/lb540studio">
-              <FiTwitter className="h-12 w-12 text-green-400 mx-auto" />
-              <p>Check us Out on Twitter</p>
-            </a>
-          </div>
-          <div className="text-center">
-            <a href="https://instagram.com/lb540studio">
-              <FiInstagram className="h-12 w-12 text-green-400 mx-auto" />
-              <p>Check us Out on Instagram</p>
-            </a>
-          </div>
-        </div>
         {!loading && twitterData ? (
           <div id="twitter-posts" className="px-3 md:px-4 lg:px-6">
             <ul className="not-prose grid gap-y-4 md:gap-y-5 lg:gap-y-8">
-              {twitterData.data.data.map((tweet, i) => {
+              {twitterData.data.data.map((tweet) => {
                 // This is where we get the urls to the media objects
                 let media;
                 if (tweet.attachments) {
@@ -61,9 +47,25 @@ function App() {
                 if (tweet.referenced_tweets) {
                   // this code is executed if the tweet is a retweet
                   // console.log(tweet.referenced_tweets[0]);
-                  rt_data = twitterData.data.includes.tweets.filter((item) => {
-                    return item.id === tweet.referenced_tweets[0].id;
+                  const users = twitterData.data.includes.users;
+                  const tweets = twitterData.data.includes.tweets;
+                  const referenced_tweet_id = tweet.referenced_tweets[0].id;
+                  const referenced_tweet = tweets.filter((tweet) => {
+                    return tweet.id === referenced_tweet_id;
                   });
+                  const referenced_tweet_author_id =
+                    referenced_tweet[0].author_id;
+
+                  const referenced_tweet_user = users.filter((user) => {
+                    return user.id === referenced_tweet_author_id;
+                  });
+                  const referenced_tweet_username =
+                    referenced_tweet_user[0].username;
+
+                  rt_data = tweets.filter((item) => {
+                    return item.id === referenced_tweet_id;
+                  });
+                  rt_data.username = referenced_tweet_username;
                 } else {
                   rt_data = false;
                 }
@@ -81,6 +83,25 @@ function App() {
                 );
               })}
             </ul>
+            <div className="my-3 md:my-4 lg:my-6">
+              <p className="text-3xl md:text-4xl lg:text-5xl">
+                Looking for more? Visit us at your preferred platform
+              </p>
+              <div className="flex justify-around my-3 md:my-4 lg:my-6">
+                <div className="text-center">
+                  <a href="https://twitter.com/lb540studio">
+                    <FiTwitter className="h-12 w-12 text-green-400 mx-auto" />
+                    <p>Check us Out on Twitter</p>
+                  </a>
+                </div>
+                <div className="text-center">
+                  <a href="https://instagram.com/lb540studio">
+                    <FiInstagram className="h-12 w-12 text-green-400 mx-auto" />
+                    <p>Check us Out on Instagram</p>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="text-center animate-pulse text-green-500">
