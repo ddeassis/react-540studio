@@ -25,10 +25,10 @@ function App() {
     <div className="flex flex-col min-h-screen text-stone-100 bg-stone-900">
       <Header />
       <main className="max-w-2xl mx-auto font-redhat py-3 md:py-4 lg:py-6">
-        <p className="prose text-stone-100 md:prose-xl lg:prose-2xl mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
+        {/* <p className="prose text-stone-100 md:prose-xl lg:prose-2xl mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
           This is where Diogo should craft a short explanation of 540Studio's
           mission.
-        </p>
+        </p> */}
         {!loading && twitterData ? (
           <div id="twitter-posts" className="px-3 md:px-4 lg:px-6">
             <ul className="not-prose grid gap-y-4 md:gap-y-5 lg:gap-y-8">
