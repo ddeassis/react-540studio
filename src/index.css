@@ -3,6 +3,6 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Londrina+Solid&family=Red+Hat+Display&display=swap");
 
-#twitter-posts a {
+#social-content a {
   @apply text-green-500 font-semibold;
 }

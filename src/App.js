@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TwitterCard from "./components/TwitterCard";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
+import Card from "./components/Card";
+import YouTubeCard from "./components/YouTubeCard";
 function App() {
   const [loading, setLoading] = useState(true);
-  const [twitterData, setTwitterData] = useState(null);
+  const [contentData, setContentData] = useState(null);
 
   const fetchData = async () => {
-    const results = await axios.get("/api/getTweets");
+    const results = await axios.get("/api/getContent");
     if (results.status === 200) {
       setLoading(false);
     }
@@ -17,9 +19,12 @@ function App() {
   };
   useEffect(() => {
     fetchData().then((res) => {
-      setTwitterData(res);
+      setContentData(res);
     });
   }, []);
+  useEffect(() => {
+    contentData !== null && console.log("contentData = ", contentData);
+  }, [contentData]);
 
   return (
     <div className="flex flex-col min-h-screen text-stone-100 bg-stone-900">
@@ -29,10 +34,79 @@ function App() {
           This is where Diogo should craft a short explanation of 540Studio's
           mission.
         </p> */}
-        {!loading && twitterData ? (
-          <div id="twitter-posts" className="px-3 md:px-4 lg:px-6">
-            <ul className="not-prose grid gap-y-4 md:gap-y-5 lg:gap-y-8">
-              {twitterData.data.data.map((tweet) => {
+        {!loading && contentData ? (
+          <div id="social-content" className="px-3 md:px-4 lg:px-6">
+            <ul className="not-prose grid  divide-y divide-green-500 divide-dotted">
+              {contentData.data.content.map((item) => {
+                // check if item is youtube
+                if (item.kind) {
+                  // item is youtube
+                  return (
+                    <li key={item.id} className="py-8">
+                      <Card>
+                        <YouTubeCard
+                          videoId={item.contentDetails.upload.videoId}
+                          thumbnails={item.snippet.thumbnails}
+                          title={item.snippet.title}
+                        />
+                      </Card>
+                    </li>
+                  );
+                } else {
+                  // item is twitter
+                  // This is where we get the urls to the media objects
+                  let media;
+                  if (item.attachments) {
+                    const media_keys = item.attachments.media_keys;
+                    media = contentData.data.includes.media.filter((item) => {
+                      return media_keys.includes(item.media_key);
+                    });
+                  }
+                  // end media object retrieval
+                  // Get the retweet full text
+                  let rt_data;
+                  if (item.referenced_tweets) {
+                    // this code is executed if the tweet is a retweet
+                    // console.log(tweet.referenced_tweets[0]);
+                    const users = contentData.data.includes.users;
+                    const tweets = contentData.data.includes.tweets;
+                    const referenced_tweet_id = item.referenced_tweets[0].id;
+                    const referenced_tweet = tweets.filter((tweet) => {
+                      return tweet.id === referenced_tweet_id;
+                    });
+                    const referenced_tweet_author_id =
+                      referenced_tweet[0].author_id;
+
+                    const referenced_tweet_user = users.filter((user) => {
+                      return user.id === referenced_tweet_author_id;
+                    });
+                    const referenced_tweet_username =
+                      referenced_tweet_user[0].username;
+
+                    rt_data = tweets.filter((rt_item) => {
+                      return rt_item.id === referenced_tweet_id;
+                    });
+                    rt_data.username = referenced_tweet_username;
+                  } else {
+                    rt_data = false;
+                  }
+                  // end getting retweet full text
+                  return (
+                    <li key={item.id} className="py-8">
+                      <Card>
+                        <TwitterCard
+                          text={item.text}
+                          media={media}
+                          date={item.created_at}
+                          metrics={item.public_metrics}
+                          retweet={rt_data ? rt_data : false}
+                        />
+                      </Card>
+                    </li>
+                  );
+                }
+              })}
+              {/* {contentData.data.data.map((tweet) => {
                 // This is where we get the urls to the media objects
                 let media;
                 if (tweet.attachments) {
@@ -81,7 +155,7 @@ function App() {
                     />
                   </li>
                 );
-              })}
+              })} */}
             </ul>
             <div className="my-3 md:my-4 lg:my-6">
               <p className="text-3xl md:text-4xl lg:text-5xl">
