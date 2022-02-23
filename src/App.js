@@ -6,9 +6,11 @@ import TwitterCard from "./components/TwitterCard";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
 import Card from "./components/Card";
 import YouTubeCard from "./components/YouTubeCard";
+import Form from "./components/Form";
 function App() {
   const [loading, setLoading] = useState(true);
   const [contentData, setContentData] = useState(null);
+  const [showForm, setShowForm] = useState(true);
 
   const fetchData = async () => {
     const results = await axios.get("/api/getContent");
@@ -27,7 +29,7 @@ function App() {
   }, [contentData]);
 
   return (
-    <div className="flex flex-col min-h-screen text-stone-100 bg-stone-900">
+    <div className="flex flex-col min-h-screen text-stone-100 bg-stone-800">
       <Header />
       <main className="max-w-2xl mx-auto font-redhat py-3 md:py-4 lg:py-6">
         {/* <p className="prose text-stone-100 md:prose-xl lg:prose-2xl mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
@@ -106,56 +108,6 @@ function App() {
                   );
                 }
               })}
-              {/* {contentData.data.data.map((tweet) => {
-                // This is where we get the urls to the media objects
-                let media;
-                if (tweet.attachments) {
-                  const media_keys = tweet.attachments.media_keys;
-                  media = twitterData.data.includes.media.filter((item) => {
-                    return media_keys.includes(item.media_key);
-                  });
-                }
-                // end media object retrieval
-                // Get the retweet full text
-                let rt_data;
-                if (tweet.referenced_tweets) {
-                  // this code is executed if the tweet is a retweet
-                  // console.log(tweet.referenced_tweets[0]);
-                  const users = twitterData.data.includes.users;
-                  const tweets = twitterData.data.includes.tweets;
-                  const referenced_tweet_id = tweet.referenced_tweets[0].id;
-                  const referenced_tweet = tweets.filter((tweet) => {
-                    return tweet.id === referenced_tweet_id;
-                  });
-                  const referenced_tweet_author_id =
-                    referenced_tweet[0].author_id;
-
-                  const referenced_tweet_user = users.filter((user) => {
-                    return user.id === referenced_tweet_author_id;
-                  });
-                  const referenced_tweet_username =
-                    referenced_tweet_user[0].username;
-
-                  rt_data = tweets.filter((item) => {
-                    return item.id === referenced_tweet_id;
-                  });
-                  rt_data.username = referenced_tweet_username;
-                } else {
-                  rt_data = false;
-                }
-                // end getting retweet full text
-                return (
-                  <li key={tweet.id}>
-                    <TwitterCard
-                      text={tweet.text}
-                      media={media}
-                      date={tweet.created_at}
-                      metrics={tweet.public_metrics}
-                      retweet={rt_data ? rt_data : false}
-                    />
-                  </li>
-                );
-              })} */}
             </ul>
             <div className="my-3 md:my-4 lg:my-6">
               <p className="text-3xl md:text-4xl lg:text-5xl">
@@ -184,6 +136,11 @@ function App() {
         )}
       </main>
       <Footer />
+      {showForm && (
+        <div className="absolute inset-0 bg-slate-700 min-h-screen z-30">
+          <Form />
+        </div>
+      )}
     </div>
   );
 }
