@@ -6,9 +6,11 @@ import TwitterCard from "./components/TwitterCard";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
 import Card from "./components/Card";
 import YouTubeCard from "./components/YouTubeCard";
+import Form from "./components/Form";
 function App() {
   const [loading, setLoading] = useState(true);
   const [contentData, setContentData] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   const fetchData = async () => {
     const results = await axios.get("/api/getContent");
@@ -27,9 +29,13 @@ function App() {
   }, [contentData]);
 
   return (
-    <div className="flex flex-col min-h-screen text-stone-100 bg-stone-900">
+    <div className="flex flex-col min-h-screen text-stone-100 bg-stone-800 ">
       <Header />
-      <main className="max-w-2xl mx-auto font-redhat py-3 md:py-4 lg:py-6">
+      <main
+        className={`max-w-2xl mx-auto font-redhat py-3 md:py-4 lg:py-6 ${
+          showForm && ` fixed `
+        }`}
+      >
         {/* <p className="prose text-stone-100 md:prose-xl lg:prose-2xl mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
           This is where Diogo should craft a short explanation of 540Studio's
           mission.
@@ -184,6 +190,11 @@ function App() {
         )}
       </main>
       <Footer />
+      {showForm && (
+        <div className="absolute inset-0 bg-stone-400 min-h-screen">
+          <Form />
+        </div>
+      )}
     </div>
   );
 }

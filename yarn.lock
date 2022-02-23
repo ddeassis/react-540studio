@@ -2045,9 +2045,9 @@
     source-map "^0.7.3"
 
 "@rollup/plugin-babel@^5.2.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.0.tgz#9cb1c5146ddd6a4968ad96f209c50c62f92f9879"
-  integrity sha512-9uIC8HZOnVLrLHxayq/PTzw+uS25E14KPUBh5ktF+18Mjo5yK0ToMMx6epY0uEgkjwJw0aBW4x2horYXh8juWw==
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.3.1.tgz#04bc0608f4aa4b2e4b1aebf284344d0f68fda283"
+  integrity sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==
   dependencies:
     "@babel/helper-module-imports" "^7.10.4"
     "@rollup/pluginutils" "^3.1.0"
@@ -2661,9 +2661,9 @@
     form-data "^3.0.0"
 
 "@types/node@*":
-  version "17.0.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.19.tgz#726171367f404bfbe8512ba608a09ebad810c7e6"
-  integrity sha512-PfeQhvcMR4cPFVuYfBN4ifG7p9c+Dlh3yUZR6k+5yQK7wX3gDgVxBly4/WkBRs9x4dmcy1TVl08SY67wwtEvmA==
+  version "17.0.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.20.tgz#29626bd9c9119df5b8194353d34044c895fe56e3"
+  integrity sha512-Q15Clj3lZSLnhVA6yKw1G7SQz46DeL9gO1TEgfK1OQGvMdQ6TUWmCeWf1QBUNkw2BDfV52i2YuYd9OF3ZwGhjw==
 
 "@types/node@^16.0.0":
   version "16.11.25"
@@ -3557,7 +3557,7 @@ assign-symbols@^1.0.0:
   resolved "https://registry.yarnpkg.com/assign-symbols/-/assign-symbols-1.0.0.tgz#59667f41fadd4f20ccbc2bb96b8d4f7f78ec0367"
   integrity sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
 
-ast-module-types@^2.3.2, ast-module-types@^2.4.0, ast-module-types@^2.7.1:
+ast-module-types@^2.3.2, ast-module-types@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/ast-module-types/-/ast-module-types-2.7.1.tgz#3f7989ef8dfa1fdb82dfe0ab02bdfc7c77a57dd3"
   integrity sha512-Rnnx/4Dus6fn7fTqdeLEAn5vUll5w7/vts0RN608yFa6si/rDOUonlIIiwugHBFWjylHjxm9owoSZn71KwG4gw==
@@ -5374,21 +5374,21 @@ detect-port-alt@^1.1.6:
     debug "^2.6.0"
 
 detective-amd@^3.1.0:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/detective-amd/-/detective-amd-3.1.1.tgz#8ff0b354ce89157a5ee4c1a8c04d74e333b3ae97"
-  integrity sha512-B/4T8tGIXEuLLBqrKc04qnSLPe5iW/ZubRSbPYAM/6ly/FDh0032iTekFFHycz02EiUfFv0GqV4yhg6A0UMd4g==
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/detective-amd/-/detective-amd-3.1.2.tgz#bf55eb5291c218b76d6224a3d07932ef13a9a357"
+  integrity sha512-jffU26dyqJ37JHR/o44La6CxtrDf3Rt9tvd2IbImJYxWKTMdBjctp37qoZ6ZcY80RHg+kzWz4bXn39e4P7cctQ==
   dependencies:
-    ast-module-types "^2.7.1"
+    ast-module-types "^3.0.0"
     escodegen "^2.0.0"
     get-amd-module-type "^3.0.0"
     node-source-walk "^4.2.0"
 
 detective-cjs@^3.1.1:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/detective-cjs/-/detective-cjs-3.1.2.tgz#b6b7ce647946cdefe136a0fff6973ead2f0f5d0d"
-  integrity sha512-lEw/irudK033uwdrH7mX5L/knHXps4YtC6OlwN8fZ8j4mPFP6QRkRBHEPgWqk/wVxDdikNGPNBIeI3WRytD+yQ==
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/detective-cjs/-/detective-cjs-3.1.3.tgz#50e107d67b37f459b0ec02966ceb7e20a73f268b"
+  integrity sha512-ljs7P0Yj9MK64B7G0eNl0ThWSYjhAaSYy+fQcpzaKalYl/UoQBOzOeLCSFEY1qEBhziZ3w7l46KG/nH+s+L7BQ==
   dependencies:
-    ast-module-types "^2.4.0"
+    ast-module-types "^3.0.0"
     node-source-walk "^4.0.0"
 
 detective-es6@^2.2.1:
@@ -9739,9 +9739,9 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   integrity sha512-AO81vsIO1k1sM4Zrd6Hu7regmJN1NSiAja10gc4bX3F0wd+9rQmcuHQaHVQCYIEC8iFXnE+mavh23GOt7wBgug==
 
 netlify-cli@^9.6.12:
-  version "9.6.12"
-  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-9.6.12.tgz#c50842073080cc903a117595f4025985ef502510"
-  integrity sha512-eHPf6o9yzG1bM7IExZUityvgQVja63N7aHkSgyrBQsVT1X6iMMGRlUuYLlTAtxfYNClD98/Sg22RXFK+PmckpA==
+  version "9.7.0"
+  resolved "https://registry.yarnpkg.com/netlify-cli/-/netlify-cli-9.7.0.tgz#fc3dab945d0fc9d66796c67499adeb990f45fd7b"
+  integrity sha512-vbL3y8NuFWTwh+BQ3fsMW8t1zLw3lMpw+SN4SuElhedNyTnu7d7sFFlsJFz98QnHF4a3M/gYECpatMT0f5m7GA==
   dependencies:
     "@netlify/build" "^26.3.5"
     "@netlify/config" "^17.0.12"
@@ -9976,9 +9976,9 @@ node-releases@^2.0.1, node-releases@^2.0.2:
   integrity sha512-XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg==
 
 node-source-walk@^4.0.0, node-source-walk@^4.2.0:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/node-source-walk/-/node-source-walk-4.2.2.tgz#9cf317af833b346d43445344e6e6fefe7df40bde"
-  integrity sha512-5JkDqb9eNv37OSovtghcN1/CxTFW5AMNrERwkTA+EsgaujwDvpWJXOHU49ZoZ2lTyzdww5Y2zHEEFYiFcAhvBA==
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/node-source-walk/-/node-source-walk-4.3.0.tgz#8336b56cfed23ac5180fe98f1e3bb6b11fd5317c"
+  integrity sha512-8Q1hXew6ETzqKRAs3jjLioSxNfT1cx74ooiF8RlAONwVMcfq+UdzLC2eB5qcPldUxaE5w3ytLkrmV1TGddhZTA==
   dependencies:
     "@babel/parser" "^7.0.0"
 
