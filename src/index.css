@@ -10,3 +10,7 @@
 #social-content a {
   @apply text-green-500 font-semibold;
 }
+
+input {
+  color-scheme: dark;
+}

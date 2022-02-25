@@ -6,6 +6,7 @@ import TwitterCard from "./components/TwitterCard";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
 import Card from "./components/Card";
 import YouTubeCard from "./components/YouTubeCard";
+import { HiPlus } from "react-icons/hi";
 import Form from "./components/Form";
 function App() {
   const [loading, setLoading] = useState(true);
@@ -46,9 +47,9 @@ function App() {
           <>
             <button
               onClick={requestHandler}
-              className="block mx-auto bg-black px-3 py-2 border border-white rounded my-4 md:my-6 lg:my-8"
+              className="fixed flex items-center justify-center bottom-6 right-6 mx-auto w-16 h-16 z-20 rounded-full bg-green-500  border border-white "
             >
-              Make a Request
+              <HiPlus className="w-12 h-12" />
             </button>
             <div id="social-content" className="px-3 md:px-4 lg:px-6">
               <ul className="not-prose grid  divide-y divide-green-500 divide-dotted">
