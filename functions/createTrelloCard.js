@@ -91,6 +91,7 @@ exports.handler = async (event, context) => {
       // SET BOARD USER IDS
       const studio = process.env.TRELLO_STUDIO_ID;
       const diogo = process.env.TRELLO_DIOGO_ID;
+      const assistant = process.env.TRELLO_ASSISTANT_ID;
 
       const trelloLists = [
         {
@@ -323,7 +324,7 @@ from ${name} ${userEmail} @${building}
         cardName,
         cardDescription,
         listId,
-        [diogo, studio],
+        [diogo, studio, assistant],
         selectedLabel[0].id
       );
       if (trelloResult.message.status === 200) {
