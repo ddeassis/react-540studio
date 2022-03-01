@@ -265,13 +265,6 @@ export default function Form({ onChildClick }) {
                 </button>
               )}
             </div>
-
-            <p className="text-sm my-4 md:my-6 lg:my-8">
-              Preview of Details to be submitted:
-            </p>
-            <pre className="whitespace-pre-wrap">
-              {JSON.stringify(watch(), null, 2)}
-            </pre>
           </form>
         )}
       </div>
