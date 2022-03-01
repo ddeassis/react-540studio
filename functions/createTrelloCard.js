@@ -43,7 +43,7 @@ const createTrelloCard = async (
   const result = await (async () => {
     try {
       const response = await axios.post(
-        `https://api.trello.com/1/cards?key=${process.env.TRELLO_API_KEY}&token=${process.env.TRELLO_TOKEN}&idList=6216425e9e1a7378fd0e26ac`,
+        `https://api.trello.com/1/cards?key=${process.env.TRELLO_API_KEY}&token=${process.env.TRELLO_TOKEN}&idList=${listId}`,
         {
           // Card Title
           name,
@@ -52,17 +52,16 @@ const createTrelloCard = async (
           // Place the card at the bottom so older cards are near the top
           pos: "bottom",
           // Assign the card to the appropriate person(s)
-          // idMembers: members,
+          idMembers: members,
           // // Give the card a 24 hour due date
-          // due: `${today.setDate(today.getDate() + 1)}`,
+          due: `${today.setDate(today.getDate() + 1)}`,
           // // Apply a red "New" label
-          // idLabels: [labelId],
+          idLabels: [labelId],
         },
         {
           method: "POST",
         }
       );
-      console.log("Trello Response");
       return { successful: true, message: response };
     } catch (error) {}
   })();
@@ -70,9 +69,7 @@ const createTrelloCard = async (
 };
 
 exports.handler = async (event, context) => {
-  // console.log("event.body = ", event.body);
   const formData = JSON.parse(event.body);
-  // console.log("context = ", context);
 
   // Check if Google thinks this interaction is suspicious
   const recaptchaValidationResult = await recaptchaValidation(
@@ -158,7 +155,7 @@ exports.handler = async (event, context) => {
         {
           id: "621641891cbc61053b50fa91",
           idBoard: "621641897bd62a0f15e02879",
-          name: "",
+          name: "Other",
           color: "yellow",
         },
         {
@@ -183,7 +180,6 @@ exports.handler = async (event, context) => {
       // Use the user's request to filter the right label
       // Grab that label's id
       // Trigger the createTrelloCard function
-
       const selectedLabel = trelloLabels.filter(
         (label) => label.name.toLowerCase() === formData.request
       );
@@ -215,111 +211,111 @@ exports.handler = async (event, context) => {
       switch (request) {
         case "video":
           cardDescription = `
-            #${request.toUpperCase()} Project | ${department} Department
-            
-            from ${name} ${userEmail} @${building}
-            
-            ---
+#${request.toUpperCase()} Project | ${department} Department
 
-            ##Project Name
+from ${name} ${userEmail} @${building}
 
-            *${videoEventName}*
+---
 
-            ---
+##Project Name
 
-            ##Project Details
+*${videoEventName}*
 
-              - Date: ${videoEventDate}
-              - Time: ${videoEventTime}
-              - Location: ${videoLocation}
+---
 
-            ---
+##Project Details
 
-            ##Project Description
+  - Date: ${videoEventDate}
+  - Time: ${videoEventTime}
+  - Location: ${videoLocation}
 
-            *${videoEventDescription}*
+---
 
-            > ${additionalInformation}
+##Project Description
+
+*${videoEventDescription}*
+
+> ${additionalInformation}
 
           `;
           break;
         case "photography":
           cardDescription = `
-            #${request.toUpperCase()} Project | ${department} Department
-            
-            from ${name} ${userEmail} @${building}
-            
-            ---
+#${request.toUpperCase()} Project | ${department} Department
 
-            ##Project Name
+from ${name} ${userEmail} @${building}
 
-            *${photoEventName}*
+---
 
-            ---
+##Project Name
 
-            ##Project Details
+*${photoEventName}*
 
-              - Date: ${photoEventDate}
-              - Time: ${photoEventTime}
+---
 
-            ---
+##Project Details
 
-            ##Project Description
+  - Date: ${photoEventDate}
+  - Time: ${photoEventTime}
 
-            *${photoEventDescription}*
+---
 
-            > ${additionalInformation}
+##Project Description
+
+*${photoEventDescription}*
+
+> ${additionalInformation}
 
           `;
 
           break;
         case "flyer":
           cardDescription = `
-            #${request.toUpperCase()} Project | ${department} Department
-            
-            from ${name} ${userEmail} @${building}
+#${request.toUpperCase()} Project | ${department} Department
 
-            ##Project Details
+from ${name} ${userEmail} @${building}
 
-              - Date: ${flyerDeadline}
-              - Distribution Assistance Requested: ${flyerDistribution}
+##Project Details
 
-            ---
+  - Date: ${flyerDeadline}
+  - Distribution Assistance Requested: ${flyerDistribution}
 
-            ##Project Description
+---
 
-            *${flyerDescription}*
+##Project Description
 
-            > ${additionalInformation}
+*${flyerDescription}*
+
+> ${additionalInformation}
 
           `;
 
           break;
         case "logo":
           cardDescription = `
-            #${request.toUpperCase()} Project | ${department} Department
-            
-            from ${name} ${userEmail} @${building}
+#${request.toUpperCase()} Project | ${department} Department
 
-            ##Project Description
+from ${name} ${userEmail} @${building}
 
-            *${logoDescription}*
+##Project Description
 
-            > ${additionalInformation}
+*${logoDescription}*
+
+> ${additionalInformation}
 
           `;
 
           break;
         default:
           cardDescription = `
-            #${request.toUpperCase()} Project | ${department} Department
-            
-            from ${name} ${userEmail} @${building}
+#${request.toUpperCase()} Project | ${department} Department
 
-            ##Project Description
+from ${name} ${userEmail} @${building}
+
+##Project Description
 
 
-            > ${additionalInformation}
+> ${additionalInformation}
 
           `;
       }
@@ -328,17 +324,16 @@ exports.handler = async (event, context) => {
         cardDescription,
         listId,
         [diogo, studio],
-        selectedLabel
+        selectedLabel[0].id
       );
-      console.log(trelloResult);
-      // if (trelloResult.message.status === 200) {
-      //   console.log("success");
-      // } else {
-      //   return {
-      //     statusCode: 400,
-      //     body: "Error with Trello integration. Message not saved. Please try again later.",
-      //   };
-      // }
+      if (trelloResult.message.status === 200) {
+        console.log("success");
+      } else {
+        return {
+          statusCode: 400,
+          body: "Error with Trello integration. Message not saved. Please try again later.",
+        };
+      }
     } else {
       // The ReCaptcha score was too low and we are not accepting this submission
       return {

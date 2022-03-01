@@ -17,7 +17,7 @@ export default function Form({ onChildClick }) {
   const [selectedRequest, setSelectedRequest] = React.useState(
     watch("request", null)
   );
-  const [showNext, setShowNext] = React.useState(false);
+  // const [showNext, setShowNext] = React.useState(false);
   const [step, setStep] = React.useState(1);
   const [previousStep, setPreviousStep] = React.useState(null);
 
@@ -25,7 +25,7 @@ export default function Form({ onChildClick }) {
     const subscription = watch((data) => {
       if (data.request) {
         setSelectedRequest(data.request);
-        setShowNext(true);
+        // setShowNext(true);
       }
     });
     return () => {
@@ -42,8 +42,6 @@ export default function Form({ onChildClick }) {
       window.grecaptcha
         .execute(process.env.REACT_APP_RECAPTCHA_SITE_KEY, { action: "submit" })
         .then((token) => {
-          console.log("values = ", values);
-          console.log("token = ", token);
           submitData(values, token);
         });
     });
@@ -108,6 +106,7 @@ export default function Form({ onChildClick }) {
           reset();
           setFormComplete(true);
           setDisabled(false);
+          setStep(1);
         } else {
           setRecaptchaPassed(false);
         }
@@ -140,116 +139,131 @@ export default function Form({ onChildClick }) {
           onClick={onChildClick}
           className="block mx-auto bg-black px-3 py-2 border border-white rounded my-4 md:my-6 lg:my-8"
         >
-          Cancel Request
+          {!formComplete ? "Cancel Request" : "Close"}
         </button>
         <hr />
-        <p className="my-4 md:my-6 lg:my-8">
-          Mustache typewriter cardigan shaman, yuccie meh hella polaroid
-          live-edge 8-bit raw denim synth dreamcatcher. Chartreuse wolf green
-          juice air plant butcher +1 organic unicorn bicycle rights. Jean shorts
-          sriracha quinoa, marfa cray trust fund try-hard shaman jianbing.
-          Celiac mlkshk normcore, locavore jianbing VHS tofu iceland vape
-          literally small batch whatever tousled. Pitchfork ramps cardigan
-          try-hard VHS succulents tote bag plaid offal. Echo park waistcoat
-          knausgaard, letterpress raw denim tacos whatever street art swag food
-          truck small batch church-key trust fund.
-        </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1">
-          {/* FORM PART 1 */}
-          <Step1 step={step} register={register} errors={errors} />
-          {/* FORM PART 2 (VIDEO) */}
-          {step >= 2 && selectedRequest === "video" && (
-            <Step2 step={step} register={register} errors={errors} />
-          )}
-          {/* FORM PART 3 (PHOTOGRAPHY) */}
-          {step >= 3 && selectedRequest === "photography" && (
-            <Step3 step={step} register={register} errors={errors} />
-          )}
-          {/* FORM PART 4 (FLYERS) */}
-          {step >= 4 && selectedRequest === "flyer" && (
-            <Step4 step={step} register={register} errors={errors} />
-          )}
-          {/* FORM PART 5 (LOGO) */}
-          {step >= 5 && selectedRequest === "logo" && (
-            <Step5 step={step} register={register} errors={errors} />
-          )}
-          {/* FORM PART 6 (ADDITIONAL INFORMATION) */}
-          {step >= 6 && <Step6 step={step} register={register} />}
-
-          <div className={`grid grid-cols-2 gap-x-4`}>
-            {!isValid && (
-              <p className="text-red-500 col-span-2 text-center my-3 md:my-4 lg:my-6">
-                Please complete all required fields before moving on.
-              </p>
+        {!formComplete ? (
+          <p className="my-4 md:my-6 lg:my-8">
+            We are happy you are interested in using our studio's services.
+            Please take a moment to fill out our form below. Be sure to complete
+            all of the fields in order to move through the form. Before clicking
+            the submit button, you will see a preview of the information we have
+            collected below the button.
+          </p>
+        ) : (
+          <p className="my-4 md:my-6 lg:my-8 text-green-500">
+            Your request has been received. You can anticipate a reply within 24
+            hours.
+          </p>
+        )}
+        {!formComplete && (
+          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1">
+            {/* FORM PART 1 */}
+            <Step1 step={step} register={register} errors={errors} />
+            {/* FORM PART 2 (VIDEO) */}
+            {step >= 2 && selectedRequest === "video" && (
+              <Step2 step={step} register={register} errors={errors} />
             )}
-            <button
-              type="button"
-              className={`bg-stone-700 text-white rounded px-3 py-2 border border-stone-200 transition duration-500 ease-in-out opacity-100 ${
-                step === 1 && `invisible`
-              }`}
-              onClick={() => {
-                if (step < 6) {
-                  setStep(1);
-                } else {
-                  setStep(previousStep);
-                }
-                setShowNext(true);
-              }}
-            >
-              Previous
-            </button>
-            {step === 6 ? (
-              <input
-                type="submit"
-                value="submit"
-                name="submit"
-                className="bg-green-500 px-3 py-2 rounded"
-              />
-            ) : (
+            {/* FORM PART 3 (PHOTOGRAPHY) */}
+            {step >= 3 && selectedRequest === "photography" && (
+              <Step3 step={step} register={register} errors={errors} />
+            )}
+            {/* FORM PART 4 (FLYERS) */}
+            {step >= 4 && selectedRequest === "flyer" && (
+              <Step4 step={step} register={register} errors={errors} />
+            )}
+            {/* FORM PART 5 (LOGO) */}
+            {step >= 5 && selectedRequest === "logo" && (
+              <Step5 step={step} register={register} errors={errors} />
+            )}
+            {/* FORM PART 6 (ADDITIONAL INFORMATION) */}
+            {step >= 6 && <Step6 step={step} register={register} />}
+
+            <div className={`grid grid-cols-2 gap-x-4`}>
+              {!isValid && (
+                <p className="text-red-500 col-span-2 text-center my-3 md:my-4 lg:my-6">
+                  Please complete all required fields before moving on.
+                </p>
+              )}
               <button
                 type="button"
-                disabled={!isValid}
-                className={`${
-                  isValid
-                    ? ` bg-stone-700 text-white border-green-500`
-                    : `bg-stone-800 text-stone-500 border-red-500`
-                } text-white rounded px-3 py-2 border  transition duration-500 ease-in-out opacity-100 
-              }`}
+                className={`bg-stone-700 text-white rounded px-3 py-2 border border-stone-200 transition duration-500 ease-in-out opacity-100 ${
+                  step === 1 && `invisible`
+                }`}
                 onClick={() => {
-                  if (step === 1) {
-                    switch (selectedRequest) {
-                      case "video":
-                        setStep(2);
-                        setPreviousStep(1);
-                        setShowNext(false);
-                        break;
-                      case "photography":
-                        setStep(3);
-                        setShowNext(false);
-                        break;
-                      case "flyer":
-                        setStep(4);
-                        setShowNext(false);
-                        break;
-                      case "logo":
-                        setStep(5);
-                        setShowNext(false);
-                        break;
-                      default:
-                        console.log("default");
-                    }
+                  if (step < 6) {
+                    setStep(1);
                   } else {
-                    setPreviousStep(step);
-                    setStep(6);
+                    setStep(previousStep);
                   }
+                  // setShowNext(true);
                 }}
               >
-                Next
+                Previous
               </button>
-            )}
-          </div>
-          <pre>{JSON.stringify(watch(), null, 2)}</pre>
-        </form>
+              {step === 6 ? (
+                <input
+                  disabled={disabled}
+                  type="submit"
+                  value="Submit"
+                  name="submit"
+                  className={`bg-green-500 px-3 py-2 rounded ${
+                    !disabled && ` cursor-pointer`
+                  }`}
+                />
+              ) : (
+                <button
+                  type="button"
+                  disabled={!isValid}
+                  className={`${
+                    isValid
+                      ? ` bg-stone-700 text-white border-green-500`
+                      : `bg-stone-800 text-stone-500 border-red-500`
+                  } text-white rounded px-3 py-2 border  transition duration-500 ease-in-out opacity-100 
+              }`}
+                  onClick={() => {
+                    if (step === 1) {
+                      switch (selectedRequest) {
+                        case "video":
+                          setStep(2);
+                          setPreviousStep(1);
+                          // setShowNext(false);
+                          break;
+                        case "photography":
+                          setStep(3);
+                          // setShowNext(false);
+                          break;
+                        case "flyer":
+                          setStep(4);
+                          // setShowNext(false);
+                          break;
+                        case "logo":
+                          setStep(5);
+                          // setShowNext(false);
+                          break;
+                        default:
+                          setStep(6);
+                        // setShowNext(false);
+                      }
+                    } else {
+                      setPreviousStep(step);
+                      setStep(6);
+                    }
+                  }}
+                >
+                  Next
+                </button>
+              )}
+            </div>
+
+            <p className="text-sm my-4 md:my-6 lg:my-8">
+              Preview of Details to be submitted:
+            </p>
+            <pre className="whitespace-pre-wrap">
+              {JSON.stringify(watch(), null, 2)}
+            </pre>
+          </form>
+        )}
       </div>
     </HelmetProvider>
   );
