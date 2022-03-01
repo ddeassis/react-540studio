@@ -108,6 +108,7 @@ export default function Form({ onChildClick }) {
           setDisabled(false);
           setStep(1);
         } else {
+          setFormComplete(true);
           setRecaptchaPassed(false);
         }
       });
@@ -142,6 +143,15 @@ export default function Form({ onChildClick }) {
           {!formComplete ? "Cancel Request" : "Close"}
         </button>
         <hr />
+        {recaptchaPassed === false && (
+          <p className="my-4 md:my-6 lg:my-8 text-red-500">
+            It appears Google has found this submission to be suspicious and is
+            protecting our site from potential "bots." If this is an error,
+            please try submitting the form again. If you continue to receive a
+            problem, please reach out to the Office of Social &amp;
+            Environmental Sustainability.
+          </p>
+        )}
         {!formComplete ? (
           <p className="my-4 md:my-6 lg:my-8">
             We are happy you are interested in using our studio's services.
@@ -286,7 +296,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="name"
           placeholder="Please Enter Your Full Name"
-          className="rounded h-10 text-white bg-stone-900 text-xl block w-full px-4 py-1"
+          className="w-full h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("name", {
             required: "Your name is required.",
           })}
@@ -304,7 +314,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="first-name"
           placeholder="Your Username"
-          className="rounded h-10 w-1/2 text-white bg-stone-900  md:text-lg lg:text-xl mr-1 text-center px-4 py-1 "
+          className="h-10 w-1/2 text-white bg-stone-900  md:text-lg lg:text-xl mr-1 text-center px-4 py-1 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("email", {
             required: "Your email username is required.",
           })}
@@ -319,7 +329,7 @@ const Step1 = ({ step, register, errors }) => {
         <select
           defaultValue={"DEFAULT"}
           name="building"
-          className="mt-4 md:mt-5 lg:mt-6 block rounded h-10 w-full text-white bg-stone-900 md:text-lg lg:text-xl mr-1 text-center py-1 "
+          className="w-full h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("building", {
             required: "A building is required.",
             pattern: "^((?!Select).)*$",
@@ -352,7 +362,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="department"
           placeholder="Please Enter Your Department"
-          className="rounded h-10 text-white bg-stone-900 text-xl block w-full px-4 py-1"
+          className="w-full h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("department", {
             required: "Your name is required.",
           })}
@@ -366,7 +376,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice1"
             name="request"
             value="video"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -381,7 +391,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice2"
             name="request"
             value="photography"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -396,7 +406,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice3"
             name="request"
             value="flyer"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -411,7 +421,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice4"
             name="request"
             value="logo"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -426,7 +436,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice5"
             name="request"
             value="other"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -509,7 +519,7 @@ const Step2 = ({ step, register, errors }) => {
           type="date"
           name="videoEventDate"
           placeholder="Please Enter Your Event Date"
-          className="rounded h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4"
+          className="h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("videoEventDate", {
             required: "Your event date is required.",
           })}
@@ -527,7 +537,7 @@ const Step2 = ({ step, register, errors }) => {
           type="time"
           name="videoEventTime"
           placeholder="Please Enter Your Event Time"
-          className="rounded h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("videoEventTime", {
             required: "Your event time is required.",
           })}
