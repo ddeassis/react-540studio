@@ -34,7 +34,7 @@ export default function TwitterCard({ date, media, metrics, retweet, text }) {
         ) : null}
         <div className="relative">
           {retweet && (
-            <p className="absolute left-4 md:left-8 text-xs text-stone-400">
+            <p className="absolute left-4 md:left-8 text-xs text-stone-800">
               Retweeted from{" "}
               <a href={`https://twitter.com/${retweet.username}`}>
                 {retweet.username}
@@ -42,7 +42,7 @@ export default function TwitterCard({ date, media, metrics, retweet, text }) {
             </p>
           )}
           <div
-            className="prose text-stone-100 md:prose-lg lg:prose-xl p-4 md:p-5 lg:p-7 "
+            className="prose text-stone-800 md:prose-lg lg:prose-xl p-4 md:p-5 lg:p-7 "
             dangerouslySetInnerHTML={{
               __html: !retweet ? text : retweet[0].text,
             }}

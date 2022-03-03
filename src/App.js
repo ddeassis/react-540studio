@@ -39,7 +39,7 @@ function App() {
       <Header />
       <main className="max-w-2xl mx-auto font-redhat py-3 md:py-4 lg:py-6">
         <p className="prose text-stone-800 md:prose-xl lg:prose-2xl mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
-        The LB 540 Studio aims to deliver rich and engaging media that prominently displays the Long Branch Green Wave pride that is evident throughout the halls of each school. With masterful storytelling as a guiding principle, we adhere to the highest of standards in releasing district level content.         </p> 
+        The 540 Studio aims to deliver rich and engaging media that prominently displays the Long Branch Green Wave pride that is evident throughout the halls of each school. With masterful storytelling as a guiding principle, we adhere to the highest of standards in releasing district level content.         </p> 
         {showForm && <Form onChildClick={requestHandler} />}
         {!loading && contentData && !showForm ? (
           <>
