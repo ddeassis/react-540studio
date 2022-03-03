@@ -5,7 +5,7 @@ export default function TwitterCard({ date, media, metrics, retweet, text }) {
     <Card>
       <article>
         <div className="pt-1">
-          <FaTwitter className="absolute -left-2 -top-3 md:-left-4 md:-top-5 text-green-400 w-6 h-6 md:w-16 md:h-16 -rotate-6" />
+          <FaTwitter className="absolute -left-2 -top-3 md:-left-4 md:-top-5 text-teal-700 w-4 h-4 md:w-10 md:h-10 -rotate-6" />
         </div>
 
         {media ? (
