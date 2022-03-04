@@ -8,7 +8,7 @@
 }
 
 #social-content a {
-  @apply text-green-500 font-semibold;
+  @apply text-teal-700 font-semibold;
 }
 
 input {
