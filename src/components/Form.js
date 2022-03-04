@@ -153,7 +153,7 @@ export default function Form({ onChildClick }) {
           </p>
         )}
         {!formComplete ? (
-          <p className="my-4 md:my-6 lg:my-8">
+          <p className="prose dark:prose-invert my-4 md:my-6 lg:my-8">
             We are happy you are interested in using our studio's services.
             Please take a moment to fill out our form below. Be sure to complete
             all of the fields in order to move through the form. Before clicking
@@ -161,7 +161,7 @@ export default function Form({ onChildClick }) {
             collected below the button.
           </p>
         ) : (
-          <p className="my-4 md:my-6 lg:my-8 text-green-500">
+          <p className="my-4 md:my-6 lg:my-8 text-teal-700 dark:text-teal-500">
             Your request has been received. You can anticipate a reply within 24
             hours.
           </p>
@@ -217,7 +217,7 @@ export default function Form({ onChildClick }) {
                   type="submit"
                   value="Submit"
                   name="submit"
-                  className={`bg-green-500 px-3 py-2 rounded ${
+                  className={`bg-teal-700 px-3 py-2 rounded ${
                     !disabled && ` cursor-pointer`
                   }`}
                 />
@@ -227,7 +227,7 @@ export default function Form({ onChildClick }) {
                   disabled={!isValid}
                   className={`${
                     isValid
-                      ? ` bg-stone-700 text-white border-green-500`
+                      ? ` bg-stone-700 text-white border-teal-500`
                       : `bg-stone-800 text-stone-500 border-red-500`
                   } text-white rounded px-3 py-2 border  transition duration-500 ease-in-out opacity-100 
               }`}
@@ -265,13 +265,6 @@ export default function Form({ onChildClick }) {
                 </button>
               )}
             </div>
-
-            <p className="text-sm my-4 md:my-6 lg:my-8">
-              Preview of Details to be submitted:
-            </p>
-            <pre className="whitespace-pre-wrap">
-              {JSON.stringify(watch(), null, 2)}
-            </pre>
           </form>
         )}
       </div>
@@ -286,7 +279,7 @@ export default function Form({ onChildClick }) {
  */
 const Step1 = ({ step, register, errors }) => {
   return (
-    <div className={`${step > 1 && ` hidden`}`}>
+    <div className={`${step > 1 && ` hidden`} prose dark:prose-invert`}>
       <label
         htmlFor="name"
         className="block md:text-lg lg:text-xl my-2 md:my-3 lg:my-4 border-b border-white"
@@ -296,7 +289,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="name"
           placeholder="Please Enter Your Full Name"
-          className="w-full h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="w-full h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("name", {
             required: "Your name is required.",
           })}
@@ -314,7 +307,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="first-name"
           placeholder="Your Username"
-          className="h-10 w-1/2 text-white bg-stone-900  md:text-lg lg:text-xl mr-1 text-center px-4 py-1 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="h-10 w-1/2 dark:bg-stone-900 bg-stone-100  md:text-lg lg:text-xl mr-1 text-center px-4 py-1 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("email", {
             required: "Your email username is required.",
           })}
@@ -329,7 +322,7 @@ const Step1 = ({ step, register, errors }) => {
         <select
           defaultValue={"DEFAULT"}
           name="building"
-          className="w-full h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="w-full h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("building", {
             required: "A building is required.",
             pattern: "^((?!Select).)*$",
@@ -362,7 +355,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="department"
           placeholder="Please Enter Your Department"
-          className="w-full h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="w-full h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
           {...register("department", {
             required: "Your name is required.",
           })}
@@ -376,7 +369,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice1"
             name="request"
             value="video"
-            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -391,7 +384,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice2"
             name="request"
             value="photography"
-            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -406,7 +399,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice3"
             name="request"
             value="flyer"
-            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -421,7 +414,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice4"
             name="request"
             value="logo"
-            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -436,7 +429,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice5"
             name="request"
             value="other"
-            className="ml-4 accent-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -455,7 +448,7 @@ const Step1 = ({ step, register, errors }) => {
  */
 const Step2 = ({ step, register, errors }) => {
   return (
-    <div className={`${step !== 2 && ` hidden `}`}>
+    <div className={`${step !== 2 && ` hidden `} prose dark:prose-invert`}>
       <h2 className="font-bold text-xl md:text-2xl text-center">
         Video Production (Filming &amp; Editing)
       </h2>
@@ -468,7 +461,7 @@ const Step2 = ({ step, register, errors }) => {
           type="text"
           name="videoEventName"
           placeholder="Please Enter Your Event Name (Reason for Video)"
-          className="rounded h-10 text-white bg-stone-900 text-xl block w-full px-4 py-1"
+          className="rounded h-10 dark:bg-stone-900 bg-stone-100 text-xl block w-full px-4 py-1"
           {...register("videoEventName", {
             required: "Your event name or reason is required.",
           })}
@@ -485,7 +478,7 @@ const Step2 = ({ step, register, errors }) => {
             id="videoLocationChoice1"
             name="videoLocation"
             value="540"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-teal-500"
             {...register("videoLocation", {
               required: "An event/recording location is required.",
             })}
@@ -500,7 +493,7 @@ const Step2 = ({ step, register, errors }) => {
             id="videoLocationChoice2"
             name="videoLocation"
             value="other"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-teal-500"
             {...register("videoLocation", {
               required: "An event/recording location is required.",
             })}
@@ -519,7 +512,7 @@ const Step2 = ({ step, register, errors }) => {
           type="date"
           name="videoEventDate"
           placeholder="Please Enter Your Event Date"
-          className="h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("videoEventDate", {
             required: "Your event date is required.",
           })}
@@ -537,7 +530,7 @@ const Step2 = ({ step, register, errors }) => {
           type="time"
           name="videoEventTime"
           placeholder="Please Enter Your Event Time"
-          className="h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("videoEventTime", {
             required: "Your event time is required.",
           })}
@@ -555,7 +548,7 @@ const Step2 = ({ step, register, errors }) => {
       <textarea
         rows="10"
         name="videoEventDescription"
-        className="block w-full mb-3 px-0.5 bg-stone-900 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out "
+        className="block w-full mb-3 px-0.5 dark:bg-stone-900 bg-stone-100 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out "
         {...register("videoEventDescription", {
           required: "Your event description is required.",
         })}
@@ -576,7 +569,7 @@ const Step2 = ({ step, register, errors }) => {
  */
 const Step3 = ({ step, register, errors }) => {
   return (
-    <div className={`${step !== 3 && ` hidden `}`}>
+    <div className={`${step !== 3 && ` hidden `} prose dark:prose-invert`}>
       <h2 className="font-bold text-xl md:text-2xl text-center">
         Photography Event
       </h2>
@@ -589,7 +582,7 @@ const Step3 = ({ step, register, errors }) => {
           type="text"
           name="photoEventName"
           placeholder="Please Enter Your Event Name"
-          className="rounded h-10 text-white bg-stone-900 text-xl block w-full px-4 py-1"
+          className="rounded h-10 dark:bg-stone-900 bg-stone-100 text-xl block w-full px-4 py-1"
           {...register("photoEventName", {
             required: "Your event name or reason is required.",
           })}
@@ -607,7 +600,7 @@ const Step3 = ({ step, register, errors }) => {
           type="date"
           name="photoEventDate"
           placeholder="Please Enter Your Event Date"
-          className="rounded h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4"
+          className="rounded h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4"
           {...register("photoEventDate", {
             required: "Your event date is required.",
           })}
@@ -625,7 +618,7 @@ const Step3 = ({ step, register, errors }) => {
           type="time"
           name="photoEventTime"
           placeholder="Please Enter Your Event Time"
-          className="h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("photoEventTime", {
             required: "Your event time is required.",
           })}
@@ -643,7 +636,7 @@ const Step3 = ({ step, register, errors }) => {
       <textarea
         rows="10"
         name="photoEventDescription"
-        className="block w-full md:text-xl my-4 p-2 bg-stone-900 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out "
+        className="block w-full md:text-xl my-4 p-2 dark:bg-stone-900 bg-stone-100 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out "
         {...register("photoEventDescription", {
           required: "Your event description is required.",
         })}
@@ -664,7 +657,7 @@ const Step3 = ({ step, register, errors }) => {
  */
 const Step4 = ({ step, register, errors }) => {
   return (
-    <div className={`${step !== 4 && ` hidden `}`}>
+    <div className={`${step !== 4 && ` hidden `} prose dark:prose-invert`}>
       <h2 className="font-bold text-xl md:text-2xl text-center">
         Flyer Request
       </h2>
@@ -677,7 +670,7 @@ const Step4 = ({ step, register, errors }) => {
       <textarea
         rows="10"
         name="flyerDescription"
-        className="block w-full md:text-xl my-4 p-2 bg-stone-900 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out "
+        className="block w-full md:text-xl my-4 p-2 dark:bg-stone-900 bg-stone-100 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out "
         {...register("flyerDescription", {
           required: "Your event description is required.",
         })}
@@ -694,7 +687,7 @@ const Step4 = ({ step, register, errors }) => {
           type="date"
           name="flyerDeadline"
           placeholder="Please Enter Your Event Date"
-          className="rounded h-10 text-white bg-stone-900 text-xl block px-4 py-1 my-4"
+          className="rounded h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4"
           {...register("flyerDeadline", {
             required: "Your event date is required.",
           })}
@@ -711,7 +704,7 @@ const Step4 = ({ step, register, errors }) => {
             id="flyerDistributionChoice1"
             name="flyerDistribution"
             value="no"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-teal-500"
             {...register("flyerDistribution", {
               required: "An distribution choice is required.",
             })}
@@ -726,7 +719,7 @@ const Step4 = ({ step, register, errors }) => {
             id="flyerDistributionChoice2"
             name="flyerDistribution"
             value="yes"
-            className="ml-4 accent-green-500"
+            className="ml-4 accent-teal-500"
             {...register("flyerDistribution", {
               required: "An distribution choice is required.",
             })}
@@ -746,7 +739,7 @@ const Step4 = ({ step, register, errors }) => {
  */
 const Step5 = ({ step, register, errors }) => {
   return (
-    <div className={`${step !== 5 && ` hidden `}`}>
+    <div className={`${step !== 5 && ` hidden `} prose dark:prose-invert`}>
       <h2 className="font-bold text-xl md:text-2xl text-center my-4">
         Logo Request
       </h2>
@@ -760,7 +753,7 @@ const Step5 = ({ step, register, errors }) => {
       <textarea
         rows="10"
         name="logoDescription"
-        className="block w-full md:text-xl my-4 p-2 bg-stone-900 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out "
+        className="block w-full md:text-xl my-4 p-2 dark:bg-stone-900 bg-stone-100 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out "
         {...register("logoDescription", {
           required: "Your logo description is required.",
         })}
@@ -778,7 +771,7 @@ const Step5 = ({ step, register, errors }) => {
  */
 const Step6 = ({ step, register }) => {
   return (
-    <div className={`${step !== 6 && ` hidden `}`}>
+    <div className={`${step !== 6 && ` hidden `} prose dark:prose-invert`}>
       <h2 className="font-bold text-xl md:text-2xl text-center my-4">
         Additional Information
       </h2>
@@ -792,7 +785,7 @@ const Step6 = ({ step, register }) => {
       <textarea
         rows="10"
         name="additionalInformation"
-        className="block w-full md:text-xl my-4 p-2 bg-stone-900 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out "
+        className="block w-full md:text-xl my-4 p-2 dark:bg-stone-900 bg-stone-100 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out "
         {...register("additionalInformation")}
       />
     </div>

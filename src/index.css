@@ -8,9 +8,5 @@
 }
 
 #social-content a {
-  @apply text-teal-700 font-semibold;
-}
-
-input {
-  color-scheme: dark;
+  @apply text-teal-700 dark:text-teal-500 font-semibold;
 }

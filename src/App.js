@@ -35,28 +35,44 @@ function App() {
   // }, [contentData]);
 
   return (
-    <div className="flex flex-col min-h-screen text-stone-100 bg-stone-100">
+    <div className="flex flex-col min-h-screen text-stone-800 bg-stone-200 dark:bg-stone-800 dark:text-stone-100">
       <Header />
-      <main className="max-w-2xl mx-auto font-redhat py-3 md:py-4 lg:py-6">
-        <p className="prose text-stone-800 md:prose-xl lg:prose-2xl mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
-        The 540 Studio aims to deliver rich and engaging media that prominently displays the Long Branch Green Wave pride that is evident throughout the halls of each school. With masterful storytelling as a guiding principle, we adhere to the highest of standards in releasing district level content.         </p> 
+      <div className="h-8 bg-stone-500 w-full shadow-md shadow-stone-400 dark:shadow-stone-600" />
+      <main className="mx-auto font-redhat py-3 md:py-4 lg:py-6">
+        {!showForm && (
+          <>
+            <p className="uppercase text-sm text-stone-500 text-center my-2 md:my-3 lg:my-4">
+              Mission
+            </p>
+            <p className="max-w-screen-lg mx-auto prose md:prose-xl lg:prose-2xl dark:prose-invert mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
+              The 540 Studio aims to deliver rich and engaging media that
+              prominently displays the Long Branch Green Wave pride that is
+              evident throughout the halls of each school. With masterful
+              storytelling as a guiding principle, we adhere to the highest of
+              standards in releasing district level content.{" "}
+            </p>
+            <p className="uppercase text-sm text-stone-500 text-center mt-6 md:mt-7 lg:mt-8">
+              Updates
+            </p>
+          </>
+        )}
         {showForm && <Form onChildClick={requestHandler} />}
         {!loading && contentData && !showForm ? (
           <>
             <button
               onClick={requestHandler}
-              className="fixed flex items-center justify-center bottom-6 right-6 mx-auto w-16 h-16 z-20 rounded-full bg-green-500  border border-white "
+              className="fixed flex items-center justify-center bottom-6 right-6 mx-auto w-16 h-16 z-20 rounded-full bg-teal-700  border border-white "
             >
-              <HiPlus className="w-12 h-12" />
+              <HiPlus className="w-12 h-12 text-stone-50" />
             </button>
             <div id="social-content" className="px-3 md:px-4 lg:px-6">
-              <ul className="not-prose grid  divide-y divide-green-500 divide-dotted">
+              <ul className="max-w-screen-2xl not-prose flex flex-wrap justify-center md:gap-x-8 divide-y divide-teal-700 dark:divide-teal-500 divide-dotted md:divide-none">
                 {contentData.data.content.map((item) => {
                   // check if item is youtube
                   if (item.kind) {
                     // item is youtube
                     return (
-                      <li key={item.id} className="py-8">
+                      <li key={item.id} className="py-8 lg:w-[450px]">
                         <Card>
                           <YouTubeCard
                             videoId={item.contentDetails.upload.videoId}
@@ -106,7 +122,7 @@ function App() {
                     }
                     // end getting retweet full text
                     return (
-                      <li key={item.id} className="py-8">
+                      <li key={item.id} className="py-8 lg:w-[450px]">
                         <Card>
                           <TwitterCard
                             text={item.text}
@@ -122,19 +138,19 @@ function App() {
                 })}
               </ul>
               <div className="my-3 md:my-4 lg:my-6">
-                <p className="text-3xl md:text-4xl lg:text-5xl">
+                <p className="text-3xl md:text-4xl lg:text-5xl text-center">
                   Looking for more? Visit us at your preferred platform
                 </p>
                 <div className="flex justify-around my-3 md:my-4 lg:my-6">
                   <div className="text-center">
                     <a href="https://twitter.com/lb540studio">
-                      <FiTwitter className="h-12 w-12 text-green-400 mx-auto" />
+                      <FiTwitter className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
                       <p>Check us Out on Twitter</p>
                     </a>
                   </div>
                   <div className="text-center">
                     <a href="https://instagram.com/lb540studio">
-                      <FiInstagram className="h-12 w-12 text-green-400 mx-auto" />
+                      <FiInstagram className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
                       <p>Check us Out on Instagram</p>
                     </a>
                   </div>
@@ -143,7 +159,7 @@ function App() {
             </div>
           </>
         ) : (
-          <div className="text-center animate-pulse text-green-500">
+          <div className="text-center animate-pulse text-teal-700 dark:text-teal-500">
             {!showForm && `LOADING...`}
           </div>
         )}
