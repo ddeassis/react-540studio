@@ -56,7 +56,7 @@ function App() {
             </p>
           </>
         )}
-        {showForm && <Form onChildClick={requestHandler} />}
+        {showForm && <Form onChildClick={requestHandler} showForm={showForm} />}
         {!loading && contentData && !showForm ? (
           <>
             <button

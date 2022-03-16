@@ -1,9 +1,8 @@
 import * as React from "react";
 import axios from "axios";
-import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 
-export default function Form({ onChildClick }) {
+export default function Form({ onChildClick, showForm }) {
   const {
     watch,
     register,
@@ -32,6 +31,36 @@ export default function Form({ onChildClick }) {
       subscription.unsubscribe();
     };
   }, [watch]);
+
+  React.useEffect(() => {
+    // Load Recaptcha Script when showForm = true
+    const recaptchaScript = document.createElement("script");
+    recaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`;
+    recaptchaScript.async = true;
+    document.head.appendChild(recaptchaScript);
+    // Clean up unnecessary Recaptcha code when showForm = false
+    return () => {
+      // Get all script tags: returns HTMLcollection
+      const scripts = document.getElementsByTagName("script");
+      // Loop through the HTMLcollection (array-like but not array)
+      for (var i = 0; i < scripts.length; i++) {
+        // find script whose src value includes "recaptcha/releases"
+        // this script is added when main recaptcha script is loaded
+        if (
+          scripts
+            .item(i)
+            .attributes.getNamedItem("src")
+            .value.includes("recaptcha/releases")
+        ) {
+          document.head.removeChild(scripts.item(i)); // remove script from head
+        }
+      }
+      document.head.removeChild(recaptchaScript); // remove main recaptcha script from head
+      // remove the recaptcha badge from the bottom right corner
+      let badge = document.querySelector(".grecaptcha-badge");
+      badge.parentElement.remove();
+    };
+  }, [showForm]);
 
   /**
    *
@@ -127,148 +156,148 @@ export default function Form({ onChildClick }) {
   };
 
   return (
-    <HelmetProvider>
-      <div className="text-white mx-4 md:mx-2 lg:mx-0">
-        <Helmet>
+    // <HelmetProvider>
+    <div className="text-white mx-4 md:mx-2 lg:mx-0">
+      {/* <Helmet>
           <script
             key="recaptcha"
             type="text/javascript"
             src={`https://www.google.com/recaptcha/api.js?render=${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`}
           />
-        </Helmet>
-        <button
-          onClick={onChildClick}
-          className="block mx-auto bg-black px-3 py-2 border border-white rounded my-4 md:my-6 lg:my-8"
-        >
-          {!formComplete ? "Cancel Request" : "Close"}
-        </button>
-        <hr />
-        {recaptchaPassed === false && (
-          <p className="my-4 md:my-6 lg:my-8 text-red-500">
-            It appears Google has found this submission to be suspicious and is
-            protecting our site from potential "bots." If this is an error,
-            please try submitting the form again. If you continue to receive a
-            problem, please reach out to the Office of Social &amp;
-            Environmental Sustainability.
-          </p>
-        )}
-        {!formComplete ? (
-          <p className="prose dark:prose-invert my-4 md:my-6 lg:my-8">
-            We are happy you are interested in using our studio's services.
-            Please take a moment to fill out our form below. Be sure to complete
-            all of the fields in order to move through the form. Before clicking
-            the submit button, you will see a preview of the information we have
-            collected below the button.
-          </p>
-        ) : (
-          <p className="my-4 md:my-6 lg:my-8 text-teal-700 dark:text-teal-500">
-            Your request has been received. You can anticipate a reply within 24
-            hours.
-          </p>
-        )}
-        {!formComplete && (
-          <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1">
-            {/* FORM PART 1 */}
-            <Step1 step={step} register={register} errors={errors} />
-            {/* FORM PART 2 (VIDEO) */}
-            {step >= 2 && selectedRequest === "video" && (
-              <Step2 step={step} register={register} errors={errors} />
-            )}
-            {/* FORM PART 3 (PHOTOGRAPHY) */}
-            {step >= 3 && selectedRequest === "photography" && (
-              <Step3 step={step} register={register} errors={errors} />
-            )}
-            {/* FORM PART 4 (FLYERS) */}
-            {step >= 4 && selectedRequest === "flyer" && (
-              <Step4 step={step} register={register} errors={errors} />
-            )}
-            {/* FORM PART 5 (LOGO) */}
-            {step >= 5 && selectedRequest === "logo" && (
-              <Step5 step={step} register={register} errors={errors} />
-            )}
-            {/* FORM PART 6 (ADDITIONAL INFORMATION) */}
-            {step >= 6 && <Step6 step={step} register={register} />}
+        </Helmet> */}
+      <button
+        onClick={onChildClick}
+        className="block mx-auto bg-black px-3 py-2 border border-white rounded my-4 md:my-6 lg:my-8"
+      >
+        {!formComplete ? "Cancel Request" : "Close"}
+      </button>
+      <hr />
+      {recaptchaPassed === false && (
+        <p className="my-4 md:my-6 lg:my-8 text-red-500">
+          It appears Google has found this submission to be suspicious and is
+          protecting our site from potential "bots." If this is an error, please
+          try submitting the form again. If you continue to receive a problem,
+          please reach out to the Office of Social &amp; Environmental
+          Sustainability.
+        </p>
+      )}
+      {!formComplete ? (
+        <p className="prose dark:prose-invert my-4 md:my-6 lg:my-8">
+          We are happy you are interested in using our studio's services. Please
+          take a moment to fill out our form below. Be sure to complete all of
+          the fields in order to move through the form. Before clicking the
+          submit button, you will see a preview of the information we have
+          collected below the button.
+        </p>
+      ) : (
+        <p className="my-4 md:my-6 lg:my-8 text-teal-700 dark:text-teal-500">
+          Your request has been received. You can anticipate a reply within 24
+          hours.
+        </p>
+      )}
+      {!formComplete && (
+        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1">
+          {/* FORM PART 1 */}
+          <Step1 step={step} register={register} errors={errors} />
+          {/* FORM PART 2 (VIDEO) */}
+          {step >= 2 && selectedRequest === "video" && (
+            <Step2 step={step} register={register} errors={errors} />
+          )}
+          {/* FORM PART 3 (PHOTOGRAPHY) */}
+          {step >= 3 && selectedRequest === "photography" && (
+            <Step3 step={step} register={register} errors={errors} />
+          )}
+          {/* FORM PART 4 (FLYERS) */}
+          {step >= 4 && selectedRequest === "flyer" && (
+            <Step4 step={step} register={register} errors={errors} />
+          )}
+          {/* FORM PART 5 (LOGO) */}
+          {step >= 5 && selectedRequest === "logo" && (
+            <Step5 step={step} register={register} errors={errors} />
+          )}
+          {/* FORM PART 6 (ADDITIONAL INFORMATION) */}
+          {step >= 6 && <Step6 step={step} register={register} />}
 
-            <div className={`grid grid-cols-2 gap-x-4`}>
-              {!isValid && (
-                <p className="text-red-500 col-span-2 text-center my-3 md:my-4 lg:my-6">
-                  Please complete all required fields before moving on.
-                </p>
-              )}
+          <div className={`grid grid-cols-2 gap-x-4`}>
+            {!isValid && (
+              <p className="text-red-500 col-span-2 text-center my-3 md:my-4 lg:my-6">
+                Please complete all required fields before moving on.
+              </p>
+            )}
+            <button
+              type="button"
+              className={`bg-stone-700 text-white rounded px-3 py-2 border border-stone-200 transition duration-500 ease-in-out opacity-100 ${
+                step === 1 && `invisible`
+              }`}
+              onClick={() => {
+                if (step < 6) {
+                  setStep(1);
+                } else {
+                  setStep(previousStep);
+                }
+                // setShowNext(true);
+              }}
+            >
+              Previous
+            </button>
+            {step === 6 ? (
+              <input
+                disabled={disabled}
+                type="submit"
+                value="Submit"
+                name="submit"
+                className={`bg-teal-700 px-3 py-2 rounded ${
+                  !disabled && ` cursor-pointer`
+                }`}
+              />
+            ) : (
               <button
                 type="button"
-                className={`bg-stone-700 text-white rounded px-3 py-2 border border-stone-200 transition duration-500 ease-in-out opacity-100 ${
-                  step === 1 && `invisible`
-                }`}
+                disabled={!isValid}
+                className={`${
+                  isValid
+                    ? ` bg-stone-700 text-white border-teal-500`
+                    : `bg-stone-800 text-stone-500 border-red-500`
+                } text-white rounded px-3 py-2 border  transition duration-500 ease-in-out opacity-100 
+              }`}
                 onClick={() => {
-                  if (step < 6) {
-                    setStep(1);
+                  if (step === 1) {
+                    switch (selectedRequest) {
+                      case "video":
+                        setStep(2);
+                        setPreviousStep(1);
+                        // setShowNext(false);
+                        break;
+                      case "photography":
+                        setStep(3);
+                        // setShowNext(false);
+                        break;
+                      case "flyer":
+                        setStep(4);
+                        // setShowNext(false);
+                        break;
+                      case "logo":
+                        setStep(5);
+                        // setShowNext(false);
+                        break;
+                      default:
+                        setStep(6);
+                      // setShowNext(false);
+                    }
                   } else {
-                    setStep(previousStep);
+                    setPreviousStep(step);
+                    setStep(6);
                   }
-                  // setShowNext(true);
                 }}
               >
-                Previous
+                Next
               </button>
-              {step === 6 ? (
-                <input
-                  disabled={disabled}
-                  type="submit"
-                  value="Submit"
-                  name="submit"
-                  className={`bg-teal-700 px-3 py-2 rounded ${
-                    !disabled && ` cursor-pointer`
-                  }`}
-                />
-              ) : (
-                <button
-                  type="button"
-                  disabled={!isValid}
-                  className={`${
-                    isValid
-                      ? ` bg-stone-700 text-white border-teal-500`
-                      : `bg-stone-800 text-stone-500 border-red-500`
-                  } text-white rounded px-3 py-2 border  transition duration-500 ease-in-out opacity-100 
-              }`}
-                  onClick={() => {
-                    if (step === 1) {
-                      switch (selectedRequest) {
-                        case "video":
-                          setStep(2);
-                          setPreviousStep(1);
-                          // setShowNext(false);
-                          break;
-                        case "photography":
-                          setStep(3);
-                          // setShowNext(false);
-                          break;
-                        case "flyer":
-                          setStep(4);
-                          // setShowNext(false);
-                          break;
-                        case "logo":
-                          setStep(5);
-                          // setShowNext(false);
-                          break;
-                        default:
-                          setStep(6);
-                        // setShowNext(false);
-                      }
-                    } else {
-                      setPreviousStep(step);
-                      setStep(6);
-                    }
-                  }}
-                >
-                  Next
-                </button>
-              )}
-            </div>
-          </form>
-        )}
-      </div>
-    </HelmetProvider>
+            )}
+          </div>
+        </form>
+      )}
+    </div>
+    // </HelmetProvider>
   );
 }
 
