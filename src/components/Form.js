@@ -307,7 +307,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="first-name"
           placeholder="Your Username"
-          className="h-10 w-1/2 dark:bg-stone-900 bg-stone-100  md:text-lg lg:text-xl mr-1 text-center px-4 py-1 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="h-10 w-1/2 dark:bg-stone-900 bg-stone-100  md:text-lg lg:text-xl mr-1 text-center px-4 py-1 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("email", {
             required: "Your email username is required.",
           })}
@@ -322,7 +322,7 @@ const Step1 = ({ step, register, errors }) => {
         <select
           defaultValue={"DEFAULT"}
           name="building"
-          className="w-full h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="w-full h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("building", {
             required: "A building is required.",
             pattern: "^((?!Select).)*$",
@@ -355,7 +355,7 @@ const Step1 = ({ step, register, errors }) => {
           type="text"
           name="department"
           placeholder="Please Enter Your Department"
-          className="w-full h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+          className="w-full h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("department", {
             required: "Your name is required.",
           })}
@@ -369,7 +369,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice1"
             name="request"
             value="video"
-            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -384,7 +384,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice2"
             name="request"
             value="photography"
-            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -399,7 +399,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice3"
             name="request"
             value="flyer"
-            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -414,7 +414,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice4"
             name="request"
             value="logo"
-            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -429,7 +429,7 @@ const Step1 = ({ step, register, errors }) => {
             id="requestChoice5"
             name="request"
             value="other"
-            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-sm transition duration-150 ease-in-out"
+            className="ml-4 accent-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
             {...register("request", {
               required: "A request type is required.",
             })}
@@ -461,7 +461,7 @@ const Step2 = ({ step, register, errors }) => {
           type="text"
           name="videoEventName"
           placeholder="Please Enter Your Event Name (Reason for Video)"
-          className="rounded h-10 dark:bg-stone-900 bg-stone-100 text-xl block w-full px-4 py-1"
+          className="h-10 dark:bg-stone-900 bg-stone-100 text-xl block px-4 py-1 my-4 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out w-full"
           {...register("videoEventName", {
             required: "Your event name or reason is required.",
           })}
@@ -548,14 +548,13 @@ const Step2 = ({ step, register, errors }) => {
       <textarea
         rows="10"
         name="videoEventDescription"
-        className="block w-full mb-3 px-0.5 dark:bg-stone-900 bg-stone-100 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out "
+        className="block w-full md:text-xl my-4 p-2 dark:bg-stone-900 bg-stone-100 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
         {...register("videoEventDescription", {
           required: "Your event description is required.",
         })}
       />
       {errors.videoEventDescription && (
         <p className="text-red-500">
-          {" "}
           &uarr; {errors.videoEventDescription.message}
         </p>
       )}
