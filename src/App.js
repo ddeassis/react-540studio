@@ -6,7 +6,7 @@ import TwitterCard from "./components/TwitterCard";
 import { FiTwitter, FiInstagram } from "react-icons/fi";
 import Card from "./components/Card";
 import YouTubeCard from "./components/YouTubeCard";
-import { HiPlus } from "react-icons/hi";
+
 import Form from "./components/Form";
 function App() {
   const [loading, setLoading] = useState(true);
@@ -30,18 +30,15 @@ function App() {
       setContentData(res);
     });
   }, []);
-  // useEffect(() => {
-  //   contentData !== null && console.log("contentData = ", contentData);
-  // }, [contentData]);
 
   return (
     <div className="flex flex-col min-h-screen text-stone-800 bg-stone-200 dark:bg-stone-800 dark:text-stone-100">
-      <Header />
+      <Header requestHandler={requestHandler} showForm={showForm} />
       <div className="h-8 bg-stone-500 w-full shadow-md shadow-stone-400 dark:shadow-stone-600" />
       <main className="mx-auto font-redhat py-3 md:py-4 lg:py-6">
         {!showForm && (
           <>
-            <p className="uppercase text-sm text-stone-500 text-center my-2 md:my-3 lg:my-4">
+            <p className="uppercase text-sm text-stone-500 text-center my-2 md:my-3 lg:my-8">
               Mission
             </p>
             <p className="max-w-screen-lg mx-auto prose md:prose-xl lg:prose-2xl dark:prose-invert mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
@@ -59,12 +56,6 @@ function App() {
         {showForm && <Form onChildClick={requestHandler} showForm={showForm} />}
         {!loading && contentData && !showForm ? (
           <>
-            <button
-              onClick={requestHandler}
-              className="fixed flex items-center justify-center bottom-6 right-6 mx-auto w-16 h-16 z-20 rounded-full bg-teal-700  border border-white "
-            >
-              <HiPlus className="w-12 h-12 text-stone-50" />
-            </button>
             <div id="social-content" className="px-3 md:px-4 lg:px-6">
               <ul className="max-w-screen-2xl not-prose flex flex-wrap justify-center md:gap-x-8 divide-y divide-teal-700 dark:divide-teal-500 divide-dotted md:divide-none">
                 {contentData.data.content.map((item) => {
