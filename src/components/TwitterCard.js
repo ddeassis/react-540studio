@@ -3,9 +3,9 @@ import { FaTwitter } from "react-icons/fa";
 export default function TwitterCard({ date, media, metrics, retweet, text }) {
   return (
     <Card>
-      <article>
-        <div>
-          <FaTwitter className="absolute -left-2 -top-3 md:-left-4 md:-top-5 text-teal-700 dark:text-teal-500 w-8 h-8 md:w-10 md:h-10 -rotate-6" />
+      <article className="relative">
+        <div className="absolute left-4 top-2 -rotate-6 overflow-visible">
+          <FaTwitter className="absolute w-12 h-12 text-teal-700 dark:text-teal-500 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" />
         </div>
 
         {media ? (
@@ -34,7 +34,7 @@ export default function TwitterCard({ date, media, metrics, retweet, text }) {
         ) : null}
         <div className="relative">
           {retweet && (
-            <p className="absolute left-4 md:left-8 top-2 text-xs text-stone-800 dark:text-stone-100">
+            <p className="text-center text-xs text-stone-800 dark:text-stone-100 pt-2">
               Retweeted from{" "}
               <a href={`https://twitter.com/${retweet.username}`}>
                 {retweet.username}
