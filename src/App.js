@@ -129,7 +129,7 @@ function App() {
                     );
                   } else {
                     return (
-                      <li key={item.id} className="w-[450px]">
+                      <li key={item.id} className="lg:w-[450px]">
                         <Card>
                           <InstagramCard {...item} />
                         </Card>
@@ -139,7 +139,7 @@ function App() {
                 })}
               </ul>
               <div className="my-3 md:my-4 lg:my-6">
-                <p className="text-3xl md:text-4xl lg:text-5xl text-center">
+                <p className="py-8 text-3xl md:text-4xl lg:text-5xl text-center">
                   Looking for more? Visit us at your preferred platform
                 </p>
                 <div className="flex justify-around my-3 md:my-4 lg:my-6">

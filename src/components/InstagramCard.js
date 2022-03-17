@@ -10,11 +10,14 @@ export default function InstagramCard({
 }) {
   return (
     <article className="flex flex-col">
-      <FiInstagram className="absolute -left-2 -top-3 md:-left-4 md:-top-5 text-teal-700 dark:text-teal-500 w-8 h-8 md:w-10 md:h-10 -rotate-6" />
+      <div className="absolute left-4 top-2 -rotate-6 overflow-visible">
+        <div className="bg-stone-200 dark:bg-stone-800 w-10 h-10 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-0 rounded-md" />
+        <FiInstagram className="absolute w-12 h-12 text-teal-700 dark:text-teal-500 left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" />
+      </div>
       {media_type === "IMAGE" || media_type === "CAROUSEL_ALBUM" ? (
         <figure>
           <a href={permalink}>
-            <img src={media_url} alt={caption} />
+            <img src={media_url} alt={caption} className="rounded-t" />
           </a>
           <figcaption className="p-2">{caption}</figcaption>
         </figure>
