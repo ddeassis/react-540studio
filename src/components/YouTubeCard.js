@@ -24,7 +24,7 @@ export default function YouTubeCard({
           className="rounded"
         />
       </a>
-      <h2 className="absolute bottom-0 h-12 w-5/6 bg-black rounded-t text-center text-xl flex justify-center items-center text-stone-100">
+      <h2 className="absolute bottom-0 left-1/2 -translate-x-1/2 h-14 w-5/6 bg-black rounded-t text-center md:text-lg text-stone-100 flex justify-center items-center p-2">
         {title}
       </h2>
       <FaYoutube className="w-8 h-8 md:w-12 md:h-12 absolute -left-2 -top-2 md:-left-4 md:-top-4 text-teal-700 dark:text-teal-500 -rotate-6" />

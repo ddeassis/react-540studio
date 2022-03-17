@@ -60,10 +60,17 @@ const createTrelloCard = async (
         },
         {
           method: "POST",
+        },
+        {
+          headers: {
+            Accept: "application/json",
+          },
         }
       );
       return { successful: true, message: response };
-    } catch (error) {}
+    } catch (error) {
+      console.log("TRELLO ERROR -> ", error);
+    }
   })();
   return result;
 };
@@ -324,7 +331,7 @@ from ${name} ${userEmail} @${building}
         cardName,
         cardDescription,
         listId,
-        [diogo, studio, assistant],
+        [diogo, studio],
         selectedLabel[0].id
       );
       if (trelloResult.message.status === 200) {
