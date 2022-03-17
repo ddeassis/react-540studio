@@ -3,11 +3,12 @@ import Footer from "./components/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TwitterCard from "./components/TwitterCard";
-import { FiTwitter, FiInstagram } from "react-icons/fi";
+import { FiTwitter, FiInstagram, FiYoutube } from "react-icons/fi";
 import Card from "./components/Card";
 import YouTubeCard from "./components/YouTubeCard";
 
 import Form from "./components/Form";
+import InstagramCard from "./components/InstagramCard";
 function App() {
   const [loading, setLoading] = useState(true);
   const [contentData, setContentData] = useState(null);
@@ -28,6 +29,7 @@ function App() {
   useEffect(() => {
     fetchData().then((res) => {
       setContentData(res);
+      console.log(res);
     });
   }, []);
 
@@ -57,10 +59,10 @@ function App() {
         {!loading && contentData && !showForm ? (
           <>
             <div id="social-content" className="px-3 md:px-4 lg:px-6">
-              <ul className="max-w-screen-2xl not-prose flex flex-wrap justify-center md:gap-x-8 divide-y divide-teal-700 dark:divide-teal-500 divide-dotted md:divide-none">
+              <ul className="max-w-screen-2xl not-prose flex flex-wrap justify-center md:gap-x-8 gap-y-8 ">
                 {contentData.data.content.map((item) => {
                   // check if item is youtube
-                  if (item.kind) {
+                  if (item.kind === "youtube#activity") {
                     // item is youtube
                     return (
                       <li key={item.id} className="py-8 lg:w-[450px]">
@@ -73,7 +75,7 @@ function App() {
                         </Card>
                       </li>
                     );
-                  } else {
+                  } else if (item.kind === "twitter") {
                     // item is twitter
                     // This is where we get the urls to the media objects
                     let media;
@@ -125,6 +127,14 @@ function App() {
                         </Card>
                       </li>
                     );
+                  } else {
+                    return (
+                      <li key={item.id} className="w-[450px]">
+                        <Card>
+                          <InstagramCard {...item} />
+                        </Card>
+                      </li>
+                    );
                   }
                 })}
               </ul>
@@ -134,15 +144,21 @@ function App() {
                 </p>
                 <div className="flex justify-around my-3 md:my-4 lg:my-6">
                   <div className="text-center">
+                    <a href="https://instagram.com/lb540studio">
+                      <FiInstagram className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
+                      <p>Check us Out on Instagram</p>
+                    </a>
+                  </div>
+                  <div className="text-center">
                     <a href="https://twitter.com/lb540studio">
                       <FiTwitter className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
                       <p>Check us Out on Twitter</p>
                     </a>
                   </div>
                   <div className="text-center">
-                    <a href="https://instagram.com/lb540studio">
-                      <FiInstagram className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
-                      <p>Check us Out on Instagram</p>
+                    <a href="https://www.youtube.com/channel/UCto2jFEiI05nyTx9L3CqTOQ">
+                      <FiYoutube className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
+                      <p>Check us Out on YouTube</p>
                     </a>
                   </div>
                 </div>

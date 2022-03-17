@@ -27,6 +27,19 @@ const getContent = async () => {
       console.log(error);
     }
   })();
+
+  let instagramResult = await (async () => {
+    try {
+      const response = axios.get(
+        `https://graph.instagram.com/me/media?fields=id,caption,media_url,media_type,timestamp,thumbnail_url,permalink&access_token=${process.env.INSTAGRAM_ACCESS_TOKEN}`
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  })();
+  // console.log(instagramResult.data);
+
   twitterResult.data.data.forEach((tweet) => {
     tweet.text = twitter.autoLink(tweet.text);
   });
@@ -35,14 +48,24 @@ const getContent = async () => {
   });
   let unsortedContent = [];
   twitterResult.data.data.forEach((result) => {
+    result = { ...result, kind: "twitter" };
     unsortedContent.push(result);
   });
 
-  youtubeResult.data.items.forEach((result) => unsortedContent.push(result));
-  unsortedContent.forEach((item) => {
-    if (item.kind === "youtube#activity") {
-      item.created_at = item.snippet.publishedAt;
-    }
+  youtubeResult.data.items.forEach((result) => {
+    result = { ...result, created_at: result.snippet.publishedAt };
+    unsortedContent.push(result);
+  });
+  // unsortedContent.forEach((item) => {
+  //   if (item.kind === "youtube#activity") {
+  //     item = { ...item, created_at: item.snippet.publishedAt };
+  //     // item.created_at = item.snippet.publishedAt;
+  //   }
+  // });
+  instagramResult.data.data.forEach((result, i) => {
+    // result.created_at = result.timestamp;
+    result = { ...result, created_at: result.timestamp, kind: "instagram" };
+    i < 5 && unsortedContent.push(result);
   });
   let sortedContent = unsortedContent.sort((a, b) => {
     let aDate = new Date(a.created_at);
@@ -53,7 +76,7 @@ const getContent = async () => {
       return 1;
     }
   });
-  // console.log(sortedContent);
+
   const returnContent = {
     content: sortedContent,
     includes: twitterResult.data.includes,
