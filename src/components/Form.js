@@ -38,6 +38,8 @@ export default function Form({ onChildClick, showForm }) {
     recaptchaScript.src = `https://www.google.com/recaptcha/api.js?render=${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`;
     recaptchaScript.async = true;
     document.head.appendChild(recaptchaScript);
+    var userNameInput = document.querySelector("#name");
+    userNameInput.focus();
     // Clean up unnecessary Recaptcha code when showForm = false
     return () => {
       // Get all script tags: returns HTMLcollection
@@ -315,6 +317,7 @@ const Step1 = ({ step, register, errors }) => {
       >
         <span className="sr-only">Enter your first and last names</span>
         <input
+          id="name"
           type="text"
           name="name"
           placeholder="Please Enter Your Full Name"
@@ -334,7 +337,7 @@ const Step1 = ({ step, register, errors }) => {
         <span className="sr-only">Enter your email username</span>
         <input
           type="text"
-          name="first-name"
+          name="email"
           placeholder="Your Username"
           className="h-10 w-1/2 dark:bg-stone-900 bg-stone-100  md:text-lg lg:text-xl mr-1 text-center px-4 py-1 focus:outline-none focus:ring-4 focus:ring-teal-500 rounded-sm transition duration-150 ease-in-out"
           {...register("email", {

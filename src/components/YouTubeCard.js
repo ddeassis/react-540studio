@@ -22,6 +22,7 @@ export default function YouTubeCard({
           }
           alt={title}
           className="rounded"
+          loading="lazy"
         />
       </a>
       <h2 className="absolute bottom-0 left-1/2 -translate-x-1/2 h-14 w-5/6 bg-black rounded-t text-center md:text-lg text-stone-100 flex justify-center items-center p-2">

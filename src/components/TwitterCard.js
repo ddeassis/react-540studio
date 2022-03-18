@@ -27,6 +27,7 @@ export default function TwitterCard({ date, media, metrics, retweet, text }) {
                       ? `rounded-tl`
                       : `rounded-tr`
                   } h-96 w-full object-cover object-center`}
+                  loading="lazy"
                 />
               );
             })}
