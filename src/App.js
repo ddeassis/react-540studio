@@ -40,7 +40,7 @@ function App() {
       <main className="mx-auto font-redhat py-3 md:py-4 lg:py-6">
         {!showForm && (
           <>
-            <p className="uppercase text-sm text-stone-500 text-center my-2 md:my-3 lg:my-8">
+            <p className="uppercase text-sm text-stone-700 dark:text-stone-200 text-center my-2 md:my-3 lg:my-8">
               Mission
             </p>
             <p className="max-w-screen-lg mx-auto prose md:prose-xl lg:prose-2xl dark:prose-invert mb-3 md:mb-4 lg:mb-6 px-3 md:px-4 lg:px-6">
@@ -50,7 +50,7 @@ function App() {
               storytelling as a guiding principle, we adhere to the highest of
               standards in releasing district level content.{" "}
             </p>
-            <p className="uppercase text-sm text-stone-500 text-center mt-6 md:mt-7 lg:mt-8">
+            <p className="uppercase text-sm text-stone-700 dark:text-stone-200 text-center mt-6 md:mt-7 lg:mt-8">
               Updates
             </p>
           </>
@@ -146,19 +146,19 @@ function App() {
                   <div className="text-center">
                     <a href="https://instagram.com/lb540studio">
                       <FiInstagram className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
-                      <p>Check us Out on Instagram</p>
+                      <p className="sr-only">Check us Out on Instagram</p>
                     </a>
                   </div>
                   <div className="text-center">
                     <a href="https://twitter.com/lb540studio">
                       <FiTwitter className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
-                      <p>Check us Out on Twitter</p>
+                      <p className="sr-only">Check us Out on Twitter</p>
                     </a>
                   </div>
                   <div className="text-center">
                     <a href="https://www.youtube.com/channel/UCto2jFEiI05nyTx9L3CqTOQ">
                       <FiYoutube className="h-12 w-12 text-teal-700 dark:text-teal-500 mx-auto" />
-                      <p>Check us Out on YouTube</p>
+                      <p className="sr-only">Check us Out on YouTube</p>
                     </a>
                   </div>
                 </div>

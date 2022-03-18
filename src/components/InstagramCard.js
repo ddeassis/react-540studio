@@ -17,7 +17,12 @@ export default function InstagramCard({
       {media_type === "IMAGE" || media_type === "CAROUSEL_ALBUM" ? (
         <figure>
           <a href={permalink}>
-            <img src={media_url} alt={caption} className="rounded-t" />
+            <img
+              src={media_url}
+              alt={caption}
+              className="rounded-t"
+              loading="lazy"
+            />
           </a>
           <figcaption className="p-2">{caption}</figcaption>
         </figure>
