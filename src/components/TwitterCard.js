@@ -1,5 +1,5 @@
-import Card from "./Card";
-import { FaTwitter } from "react-icons/fa";
+import Card from './Card'
+import { FaTwitter } from 'react-icons/fa'
 export default function TwitterCard({ date, media, metrics, retweet, text }) {
   return (
     <Card>
@@ -16,27 +16,29 @@ export default function TwitterCard({ date, media, metrics, retweet, text }) {
           >
             {media.map((item, i) => {
               return (
-                <img
-                  key={item.media_key}
-                  src={item.url}
-                  alt=""
-                  className={`${
-                    media.length === 1
-                      ? `rounded-t`
-                      : i % 2 === 0
-                      ? `rounded-tl`
-                      : `rounded-tr`
-                  } h-96 w-full object-cover object-center`}
-                  loading="lazy"
-                />
-              );
+                <a href={item.url}>
+                  <img
+                    key={item.media_key}
+                    src={item.url}
+                    alt=""
+                    className={`${
+                      media.length === 1
+                        ? `rounded-t`
+                        : i % 2 === 0
+                        ? `rounded-tl`
+                        : `rounded-tr`
+                    } h-96 w-full object-cover object-center`}
+                    loading="lazy"
+                  />
+                </a>
+              )
             })}
           </div>
         ) : null}
         <div className="relative">
           {retweet && (
             <p className="text-center text-xs text-stone-800 dark:text-stone-100 pt-2">
-              Retweeted from{" "}
+              Retweeted from{' '}
               <a href={`https://twitter.com/${retweet.username}`}>
                 {retweet.username}
               </a>
@@ -51,14 +53,14 @@ export default function TwitterCard({ date, media, metrics, retweet, text }) {
         </div>
         <div className="text-xs text-center pb-2 md:pb-3 lg:pb-4">
           {retweet ? `Retweeted on ` : `Tweeted on `}
-          {new Date(date).toLocaleDateString("en-US", {
-            weekday: "long",
-            month: "long",
-            day: "numeric",
-            year: "numeric",
+          {new Date(date).toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
           })}
         </div>
       </article>
     </Card>
-  );
+  )
 }

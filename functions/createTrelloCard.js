@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require('axios')
 
 /**
  * recaptchaValidation - Retrieves a score from Google based on user's interaction
@@ -9,28 +9,28 @@ const recaptchaValidation = async (recaptchaToken) => {
   const result = await (async () => {
     try {
       const response = await axios({
-        url: "https://www.google.com/recaptcha/api/siteverify",
-        method: "POST",
+        url: 'https://www.google.com/recaptcha/api/siteverify',
+        method: 'POST',
         params: {
           secret: process.env.RECAPTCHA_SECRET_KEY,
           response: recaptchaToken,
         },
-      });
-      return { successful: true, message: response.data.score };
+      })
+      return { successful: true, message: response.data.score }
     } catch (error) {
-      let message;
+      let message
       if (error.response) {
-        message = `reCAPTCHA server responded with non 2xx code: ${error.response.data}`;
+        message = `reCAPTCHA server responded with non 2xx code: ${error.response.data}`
       } else if (error.request) {
-        message = `No reCAPTCHA response received: ${error.request}`;
+        message = `No reCAPTCHA response received: ${error.request}`
       } else {
-        message = `Error setting up reCAPTCHA response: ${error.message}`;
+        message = `Error setting up reCAPTCHA response: ${error.message}`
       }
-      return { successful: false, message };
+      return { successful: false, message }
     }
-  })();
-  return result;
-};
+  })()
+  return result
+}
 
 const createTrelloCard = async (
   name,
@@ -39,7 +39,7 @@ const createTrelloCard = async (
   members,
   labelId
 ) => {
-  const today = new Date();
+  const today = new Date()
   const result = await (async () => {
     try {
       const response = await axios.post(
@@ -50,7 +50,7 @@ const createTrelloCard = async (
           // Card Description/Body
           desc: description,
           // Place the card at the bottom so older cards are near the top
-          pos: "bottom",
+          pos: 'bottom',
           // Assign the card to the appropriate person(s)
           idMembers: members,
           // // Give the card a 24 hour due date
@@ -59,29 +59,29 @@ const createTrelloCard = async (
           idLabels: [labelId],
         },
         {
-          method: "POST",
+          method: 'POST',
         },
         {
           headers: {
-            Accept: "application/json",
+            Accept: 'application/json',
           },
         }
-      );
-      return { successful: true, message: response };
+      )
+      return { successful: true, message: response }
     } catch (error) {
-      console.log("TRELLO ERROR -> ", error);
+      console.log('TRELLO ERROR -> ', error)
     }
-  })();
-  return result;
-};
+  })()
+  return result
+}
 
 exports.handler = async (event, context) => {
-  const formData = JSON.parse(event.body);
+  const formData = JSON.parse(event.body)
 
   // Check if Google thinks this interaction is suspicious
   const recaptchaValidationResult = await recaptchaValidation(
     formData.recaptchaToken
-  );
+  )
   // Check if Recaptcha was able to process the interaction
   if (!recaptchaValidationResult.successful) {
     // this is sent if the recaptcha was not successful
@@ -89,109 +89,109 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 400,
       body: recaptchaValidationResult.message,
-    };
+    }
   } else {
     // Make sure the value returned is numeric
-    const googleCaptchaScore = Number(recaptchaValidationResult.message);
+    const googleCaptchaScore = Number(recaptchaValidationResult.message)
     // Arbitrarily setting the threshold of suspicion @ 0.5 adjust as needed
     if (googleCaptchaScore > 0.6) {
       // SET BOARD USER IDS
-      const studio = process.env.TRELLO_STUDIO_ID;
-      const diogo = process.env.TRELLO_DIOGO_ID;
-      const assistant = process.env.TRELLO_ASSISTANT_ID;
+      const studio = process.env.TRELLO_STUDIO_ID
+      const diogo = process.env.TRELLO_DIOGO_ID
+      // const assistant = process.env.TRELLO_ASSISTANT_ID;
 
       const trelloLists = [
         {
-          id: "6216425e9e1a7378fd0e26ac",
-          name: "New",
+          id: '6216425e9e1a7378fd0e26ac',
+          name: 'New',
           closed: false,
-          idBoard: "621641897bd62a0f15e02879",
+          idBoard: '621641897bd62a0f15e02879',
           pos: 8192,
           subscribed: false,
           softLimit: null,
         },
         {
-          id: "621641897bd62a0f15e0287a",
-          name: "To Do",
+          id: '621641897bd62a0f15e0287a',
+          name: 'To Do',
           closed: false,
-          idBoard: "621641897bd62a0f15e02879",
+          idBoard: '621641897bd62a0f15e02879',
           pos: 16384,
           subscribed: false,
           softLimit: null,
         },
         {
-          id: "621641897bd62a0f15e0287b",
-          name: "Doing",
+          id: '621641897bd62a0f15e0287b',
+          name: 'Doing',
           closed: false,
-          idBoard: "621641897bd62a0f15e02879",
+          idBoard: '621641897bd62a0f15e02879',
           pos: 32768,
           subscribed: false,
           softLimit: null,
         },
         {
-          id: "62164270e9a59a340bea5000",
-          name: "On Hold",
+          id: '62164270e9a59a340bea5000',
+          name: 'On Hold',
           closed: false,
-          idBoard: "621641897bd62a0f15e02879",
+          idBoard: '621641897bd62a0f15e02879',
           pos: 40960,
           subscribed: false,
           softLimit: null,
         },
         {
-          id: "621641897bd62a0f15e0287c",
-          name: "Done",
+          id: '621641897bd62a0f15e0287c',
+          name: 'Done',
           closed: false,
-          idBoard: "621641897bd62a0f15e02879",
+          idBoard: '621641897bd62a0f15e02879',
           pos: 49152,
           subscribed: false,
           softLimit: null,
         },
-      ];
+      ]
       const trelloLabels = [
         {
-          id: "621641891cbc61053b50fa8b",
-          idBoard: "621641897bd62a0f15e02879",
-          name: "Photography",
-          color: "orange",
+          id: '621641891cbc61053b50fa8b',
+          idBoard: '621641897bd62a0f15e02879',
+          name: 'Photography',
+          color: 'orange',
         },
         {
-          id: "621641891cbc61053b50fa8e",
-          idBoard: "621641897bd62a0f15e02879",
-          name: "On Hold",
-          color: "red",
+          id: '621641891cbc61053b50fa8e',
+          idBoard: '621641897bd62a0f15e02879',
+          name: 'On Hold',
+          color: 'red',
         },
         {
-          id: "621641891cbc61053b50fa91",
-          idBoard: "621641897bd62a0f15e02879",
-          name: "Other",
-          color: "yellow",
+          id: '621641891cbc61053b50fa91',
+          idBoard: '621641897bd62a0f15e02879',
+          name: 'Other',
+          color: 'yellow',
         },
         {
-          id: "621641891cbc61053b50fa93",
-          idBoard: "621641897bd62a0f15e02879",
-          name: "Video",
-          color: "purple",
+          id: '621641891cbc61053b50fa93',
+          idBoard: '621641897bd62a0f15e02879',
+          name: 'Video',
+          color: 'purple',
         },
         {
-          id: "621641891cbc61053b50fa94",
-          idBoard: "621641897bd62a0f15e02879",
-          name: "Flyer",
-          color: "pink",
+          id: '621641891cbc61053b50fa94',
+          idBoard: '621641897bd62a0f15e02879',
+          name: 'Flyer',
+          color: 'pink',
         },
         {
-          id: "621641891cbc61053b50fa96",
-          idBoard: "621641897bd62a0f15e02879",
-          name: "Logo",
-          color: "green",
+          id: '621641891cbc61053b50fa96',
+          idBoard: '621641897bd62a0f15e02879',
+          name: 'Logo',
+          color: 'green',
         },
-      ];
+      ]
       // Use the user's request to filter the right label
       // Grab that label's id
       // Trigger the createTrelloCard function
       const selectedLabel = trelloLabels.filter(
         (label) => label.name.toLowerCase() === formData.request
-      );
-      const listId = trelloLists[0].id;
+      )
+      const listId = trelloLists[0].id
       let {
         name,
         email,
@@ -212,12 +212,12 @@ exports.handler = async (event, context) => {
         flyerDistribution,
         logoDescription,
         additionalInformation,
-      } = formData;
-      const userEmail = `${email}@longbranch.k12.nj.us`;
-      const cardName = `Request for ${request} from ${email}`;
-      let cardDescription = ``;
+      } = formData
+      const userEmail = `${email}@longbranch.k12.nj.us`
+      const cardName = `Request for ${request} from ${email}`
+      let cardDescription = ``
       switch (request) {
-        case "video":
+        case 'video':
           cardDescription = `
 #${request.toUpperCase()} Project | ${department} Department
 
@@ -245,9 +245,9 @@ from ${name} ${userEmail} @${building}
 
 > ${additionalInformation}
 
-          `;
-          break;
-        case "photography":
+          `
+          break
+        case 'photography':
           cardDescription = `
 #${request.toUpperCase()} Project | ${department} Department
 
@@ -274,10 +274,10 @@ from ${name} ${userEmail} @${building}
 
 > ${additionalInformation}
 
-          `;
+          `
 
-          break;
-        case "flyer":
+          break
+        case 'flyer':
           cardDescription = `
 #${request.toUpperCase()} Project | ${department} Department
 
@@ -296,10 +296,10 @@ from ${name} ${userEmail} @${building}
 
 > ${additionalInformation}
 
-          `;
+          `
 
-          break;
-        case "logo":
+          break
+        case 'logo':
           cardDescription = `
 #${request.toUpperCase()} Project | ${department} Department
 
@@ -311,9 +311,9 @@ from ${name} ${userEmail} @${building}
 
 > ${additionalInformation}
 
-          `;
+          `
 
-          break;
+          break
         default:
           cardDescription = `
 #${request.toUpperCase()} Project | ${department} Department
@@ -325,7 +325,7 @@ from ${name} ${userEmail} @${building}
 
 > ${additionalInformation}
 
-          `;
+          `
       }
       const trelloResult = await createTrelloCard(
         cardName,
@@ -333,34 +333,34 @@ from ${name} ${userEmail} @${building}
         listId,
         [diogo, studio],
         selectedLabel[0].id
-      );
+      )
       if (trelloResult.message.status === 200) {
-        console.log("success");
+        console.log('success')
       } else {
         return {
           statusCode: 400,
-          body: "Error with Trello integration. Message not saved. Please try again later.",
-        };
+          body: 'Error with Trello integration. Message not saved. Please try again later.',
+        }
       }
     } else {
       // The ReCaptcha score was too low and we are not accepting this submission
       return {
         statusCode: 400,
-        body: "Action not taken, possible bot detected.",
-      };
+        body: 'Action not taken, possible bot detected.',
+      }
     }
   }
 
-  if (event.httpMethod !== "POST") {
+  if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      body: "Method Not Allowed",
-    };
+      body: 'Method Not Allowed',
+    }
   } else {
   }
 
   return {
     statusCode: 200,
-    body: "Ok!",
-  };
-};
+    body: 'Ok!',
+  }
+}
