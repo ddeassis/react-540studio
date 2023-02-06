@@ -2,13 +2,11 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import TwitterCard from './components/TwitterCard'
 import { FiTwitter, FiInstagram, FiYoutube } from 'react-icons/fi'
 import Card from './components/Card'
 import YouTubeCard from './components/YouTubeCard'
 
 import Form from './components/Form'
-import InstagramCard from './components/InstagramCard'
 function App() {
   const [loading, setLoading] = useState(true)
   const [contentData, setContentData] = useState(null)
@@ -60,82 +58,19 @@ function App() {
           <>
             <div id="social-content" className="px-3 md:px-4 lg:px-6">
               <ul className="max-w-screen-2xl not-prose flex flex-wrap justify-center md:gap-x-8 gap-y-8 ">
+                {console.log('conentData -----> ', contentData)}
                 {contentData.data.content.map((item) => {
-                  // check if item is youtube
-                  if (item.kind === 'youtube#activity') {
-                    // item is youtube
-                    return (
-                      <li key={item.id} className="py-8 lg:w-[450px]">
-                        <Card>
-                          <YouTubeCard
-                            videoId={item.contentDetails.upload.videoId}
-                            thumbnails={item.snippet.thumbnails}
-                            title={item.snippet.title}
-                          />
-                        </Card>
-                      </li>
-                    )
-                  } else if (item.kind === 'twitter') {
-                    // item is twitter
-                    // This is where we get the urls to the media objects
-                    let media
-                    if (item.attachments) {
-                      const media_keys = item.attachments.media_keys
-                      media = contentData.data.includes.media.filter((item) => {
-                        return media_keys.includes(item.media_key)
-                      })
-                    }
-                    // end media object retrieval
-                    // Get the retweet full text
-                    let rt_data
-                    if (item.referenced_tweets) {
-                      // this code is executed if the tweet is a retweet
-                      // console.log(tweet.referenced_tweets[0]);
-                      const users = contentData.data.includes.users
-                      const tweets = contentData.data.includes.tweets
-                      const referenced_tweet_id = item.referenced_tweets[0].id
-                      const referenced_tweet = tweets.filter((tweet) => {
-                        return tweet.id === referenced_tweet_id
-                      })
-                      const referenced_tweet_author_id =
-                        referenced_tweet[0].author_id
-
-                      const referenced_tweet_user = users.filter((user) => {
-                        return user.id === referenced_tweet_author_id
-                      })
-                      const referenced_tweet_username =
-                        referenced_tweet_user[0].username
-
-                      rt_data = tweets.filter((rt_item) => {
-                        return rt_item.id === referenced_tweet_id
-                      })
-                      rt_data.username = referenced_tweet_username
-                    } else {
-                      rt_data = false
-                    }
-                    // end getting retweet full text
-                    return (
-                      <li key={item.id} className="py-8 lg:w-[450px]">
-                        <Card>
-                          <TwitterCard
-                            text={item.text}
-                            media={media}
-                            date={item.created_at}
-                            metrics={item.public_metrics}
-                            retweet={rt_data ? rt_data : false}
-                          />
-                        </Card>
-                      </li>
-                    )
-                  } else {
-                    return (
-                      <li key={item.id} className="lg:w-[450px]">
-                        <Card>
-                          <InstagramCard {...item} />
-                        </Card>
-                      </li>
-                    )
-                  }
+                  return (
+                    <li key={item.etag} className="py-8 lg:w-[450px]">
+                      <Card>
+                        <YouTubeCard
+                          videoId={item.id.videoId}
+                          thumbnails={item.snippet.thumbnails}
+                          title={item.snippet.title}
+                        />
+                      </Card>
+                    </li>
+                  )
                 })}
               </ul>
               <div className="my-3 md:my-4 lg:my-6">
