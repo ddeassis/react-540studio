@@ -28,6 +28,8 @@ function App() {
   useEffect(() => {
     fetchData().then((res) => {
       setContentData(res)
+      document.querySelector('#social-content').classList.add('opacity-100')
+      document.querySelector('#social-content').classList.remove('opacity-0')
     })
   }, [])
 
@@ -56,9 +58,11 @@ function App() {
         {showForm && <Form onChildClick={requestHandler} showForm={showForm} />}
         {!loading && contentData && !showForm ? (
           <>
-            <div id="social-content" className="px-3 md:px-4 lg:px-6">
+            <div
+              id="social-content"
+              className="px-3 md:px-4 lg:px-6 transition duration-500 ease-in opacity-0"
+            >
               <ul className="max-w-screen-2xl not-prose flex flex-wrap justify-center md:gap-x-8 gap-y-8 ">
-                {console.log('conentData -----> ', contentData)}
                 {contentData.data.content.map((item) => {
                   return (
                     <li key={item.etag} className="py-8 lg:w-[450px]">

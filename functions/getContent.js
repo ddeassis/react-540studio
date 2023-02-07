@@ -4,7 +4,6 @@ const getContent = async () => {
   let youtubeResult = await (async () => {
     try {
       const response = axios.get(
-        // `https://youtube.googleapis.com/youtube/v3/activities?part=snippet%2C%20contentDetails&channelId=UCto2jFEiI05nyTx9L3CqTOQ&maxResults=10&key=${process.env.YOUTUBE_API_KEY}`
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UCto2jFEiI05nyTx9L3CqTOQ&maxResults=10&order=date&type=video&key=${process.env.YOUTUBE_API_KEY}`
       )
 
