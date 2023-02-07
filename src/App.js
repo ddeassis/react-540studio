@@ -58,7 +58,6 @@ function App() {
           <>
             <div id="social-content" className="px-3 md:px-4 lg:px-6">
               <ul className="max-w-screen-2xl not-prose flex flex-wrap justify-center md:gap-x-8 gap-y-8 ">
-                {console.log('conentData -----> ', contentData)}
                 {contentData.data.content.map((item) => {
                   return (
                     <li key={item.etag} className="py-8 lg:w-[450px]">
